@@ -8,6 +8,7 @@
 // and displays a corresponding message in the center of the [Scaffold].
 
 import 'package:flutter/material.dart';
+import 'post.dart';
 
 class MyMainPage extends StatefulWidget {
   const MyMainPage({Key? key}) : super(key: key);
@@ -47,9 +48,34 @@ class MyMainPageState extends State<MyMainPage> {
         title: const Text('Redditech'),
         backgroundColor: Color.fromARGB(255, 255, 69, 0),
       ),
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
+
+      drawer: Drawer(
+      child: ListView(
+      padding: EdgeInsets.zero,
+      children: const <Widget>[
+        DrawerHeader(
+          decoration: BoxDecoration(
+            color: Color.fromARGB(255, 255, 69, 0),
+          ),
+          child: Text(
+            'Drawer Header',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 24,
+            ),
+          ),
+      )])),
+
+      body: ListView(
+        padding: const EdgeInsets.all(10),
+        children: <Widget>[
+          Posts("Phillipe"),
+          Posts("Henry"),
+          Posts("Mbappé"),
+          Posts("Louis"),
+        ],
       ),
+      backgroundColor: Colors.grey.shade800,
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
