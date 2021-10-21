@@ -8,7 +8,7 @@
 // and displays a corresponding message in the center of the [Scaffold].
 
 import 'package:flutter/material.dart';
-
+import 'post.dart';
 void main() => runApp(const MyApp());
 
 /// This is the main application widget.
@@ -22,6 +22,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       title: _title,
       home: MyStatefulWidget(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
@@ -37,6 +38,8 @@ class MyStatefulWidget extends StatefulWidget {
 /// This is the private State class that goes with MyStatefulWidget.
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   int _selectedIndex = 0;
+  final List<String> entries = <String>["Post #1", "Post #2", "Post #3"];
+
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
@@ -67,9 +70,34 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
         title: const Text('Redditech'),
         backgroundColor: Color.fromARGB(255, 255, 69, 0),
       ),
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
+
+      drawer: Drawer(
+      child: ListView(
+      padding: EdgeInsets.zero,
+      children: const <Widget>[
+        DrawerHeader(
+          decoration: BoxDecoration(
+            color: Color.fromARGB(255, 255, 69, 0),
+          ),
+          child: Text(
+            'Drawer Header',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 24,
+            ),
+          ),
+      )])),
+
+      body: ListView(
+        padding: const EdgeInsets.all(10),
+        children: <Widget>[
+          Posts("Phillipe"),
+          Posts("Henry"),
+          Posts("Mbappé"),
+          Posts("Louis"),
+        ],
       ),
+      backgroundColor: Colors.grey.shade800,
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
