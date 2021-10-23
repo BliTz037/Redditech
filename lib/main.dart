@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:redditech/mainPage.dart';
 import 'auth.dart';
+import 'ProfilPage.dart';
 
 void main() {
   runApp(
@@ -9,6 +10,7 @@ void main() {
       routes: {
         '/': (context) => MyAuthentication(),
         '/main': (context) => MyMainPage(),
+        '/profil': (context) => ProfilPage(),
       },
     ),
   );
