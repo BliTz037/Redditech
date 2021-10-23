@@ -42,7 +42,6 @@ class ProfilPageState extends State<ProfilPage> {
       ),
       drawer: MyDrawer(),
       body: ListView(
-        padding: const EdgeInsets.all(10),
         children: <Widget>[
 Container(
   padding: EdgeInsets.zero,

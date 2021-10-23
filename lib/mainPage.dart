@@ -51,7 +51,6 @@ class MyMainPageState extends State<MyMainPage> {
       ),
       drawer: MyDrawer(),
       body: ListView(
-        padding: const EdgeInsets.all(10),
         children: <Widget>[
           Posts("Phillipe"),
           Posts("Henry"),
