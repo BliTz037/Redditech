@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:redditech/mainPage.dart';
 import 'package:provider/provider.dart';
-
+import 'ProfilPage.dart';
+import 'SubredditPage.dart';
 import 'auth.dart';
 import 'userProvider.dart';
 
@@ -38,10 +39,13 @@ class MyRoute extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
         '/': (context) => MyAuthentication(),
         '/main': (context) => MyMainPage(),
+        '/profil': (context) => ProfilPage(),
+        '/subreddit': (context) => SubredditPage(),
       },
     );
   }
