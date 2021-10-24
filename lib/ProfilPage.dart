@@ -43,17 +43,55 @@ class ProfilPageState extends State<ProfilPage> {
       drawer: MyDrawer(),
       body: ListView(
         children: <Widget>[
-Container(
-  padding: EdgeInsets.zero,
-  width: MediaQuery.of(context).size.width,
-  height: 100,
-  decoration: BoxDecoration(
-    image: DecorationImage(
-      fit: BoxFit.fill,
-      image: NetworkImage("https://pbs.twimg.com/media/D-jnKUPU4AE3hVR.jpg"),
-    ),
-  ),
-),
+          Container(
+            width: MediaQuery.of(context).size.width,
+            height: 100,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                fit: BoxFit.fill,
+                image: NetworkImage(
+                    "https://pbs.twimg.com/media/D-jnKUPU4AE3hVR.jpg"),
+              ),
+            ),
+          ),
+          Container(
+            color: Colors.white,
+            height: 150,
+            child: Stack(children: [
+              Align(
+                alignment: Alignment.topLeft + Alignment(0.05, -1),
+                child: CircleAvatar(
+                    radius: 45,
+                    backgroundColor: Color.fromARGB(255, 255, 69, 0),
+                    child: CircleAvatar(
+                      radius: 40.0,
+                      backgroundImage:
+                          NetworkImage('https://i.ibb.co/hLnvQWQ/images.jpg'),
+                    )),
+              ),
+              Align(
+                alignment: Alignment.topLeft + Alignment(0.8, 0.2),
+                child: Text(
+                  'u/BliTz_37',
+                  style: TextStyle(color: Colors.black, fontSize: 20.0),
+                ),
+              ),
+              Align(
+                alignment: Alignment.bottomLeft + Alignment(1.05, -1.4),
+                child: Text(
+                  '6747 karma • 3 ans • 4 juil. 2018',
+                  style: TextStyle(color: Colors.black54, fontSize: 12.0),
+                ),
+              ),
+              Align(
+                alignment: Alignment(30, 0.2),
+                child: Text(
+                  'Le train de tes injures roule sur le rail de mon indifférence - George Abitbol',
+                  style: TextStyle(color: Colors.black54, fontSize: 12.0),
+                ),
+              ),
+            ]),
+          ),
           Posts("Phillipe"),
         ],
       ),
