@@ -48,11 +48,8 @@ class MyMainPageState extends State<MyMainPage> {
         title: const Text('Redditech'),
         backgroundColor: Color.fromARGB(255, 255, 69, 0),
       ),
-
       drawer: Drawer(
-      child: ListView(
-      padding: EdgeInsets.zero,
-      children: const <Widget>[
+          child: ListView(padding: EdgeInsets.zero, children: const <Widget>[
         DrawerHeader(
           decoration: BoxDecoration(
             color: Color.fromARGB(255, 255, 69, 0),
@@ -64,8 +61,8 @@ class MyMainPageState extends State<MyMainPage> {
               fontSize: 24,
             ),
           ),
-      )])),
-
+        )
+      ])),
       body: ListView(
         padding: const EdgeInsets.all(10),
         children: <Widget>[

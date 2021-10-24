@@ -45,7 +45,6 @@ class InteractPost extends StatelessWidget {
 }
 
 class Posts extends StatelessWidget {
-
   var _user;
   var _urlUserProfilePicture;
   var _subreddit;
@@ -72,8 +71,7 @@ class Posts extends StatelessWidget {
     this._urlPost = "localhost/";
   }
 
-  Posts(var name)
-  {
+  Posts(var name) {
     this._user = name;
   }
 
@@ -84,7 +82,9 @@ class Posts extends StatelessWidget {
       ListTile(
           //leading: FlutterLogo(),
           //leading: CircleAvatar(backgroundColor: Colors.brown.shade800, child: const Text('X')),
-          leading: CircleAvatar(backgroundImage: NetworkImage("https://www.journaldugeek.com/content/uploads/2021/03/xbox-1.jpg")),
+          leading: CircleAvatar(
+              backgroundImage: NetworkImage(
+                  "https://www.journaldugeek.com/content/uploads/2021/03/xbox-1.jpg")),
           title: Text('r/' + _user),
           subtitle: Text('u/jsbibatea | 6d')),
       Container(
@@ -110,8 +110,9 @@ class Posts extends StatelessWidget {
       //     )),
       Container(
         margin: const EdgeInsets.all(10),
-        child:
-            Image(image: NetworkImage('https://i.redd.it/5ap6kaz58mu71.png')),
+        child: Image(
+            image: NetworkImage(
+                'https://mradio.fr/media/news/thumb/870x489_5cb5a4925660a-12243552-10154312713952995-1271073132518636725-n.jpg')),
       ),
       const Divider(
         height: 0,
