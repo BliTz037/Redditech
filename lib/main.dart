@@ -3,6 +3,7 @@ import 'package:redditech/mainPage.dart';
 import 'package:provider/provider.dart';
 import 'ProfilPage.dart';
 import 'SubredditPage.dart';
+import 'SettingsPage.dart';
 import 'auth.dart';
 import 'userProvider.dart';
 
@@ -46,6 +47,7 @@ class MyRoute extends StatelessWidget {
         '/main': (context) => MyMainPage(),
         '/profil': (context) => ProfilPage(),
         '/subreddit': (context) => SubredditPage(),
+        '/settings': (context) => SettingsPage()
       },
     );
   }

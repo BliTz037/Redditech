@@ -53,10 +53,6 @@ class MyDrawer extends StatelessWidget {
           leading: Icon(Icons.account_circle_rounded,
               color: Color.fromARGB(255, 255, 69, 0)),
           onTap: () {
-            // Update the state of the app
-            // ...
-            // Then close the drawer
-            //Navigator.pop(context);
             Navigator.popAndPushNamed(context, "/profil");
           },
           title: const Text("Profil")),
@@ -65,15 +61,14 @@ class MyDrawer extends StatelessWidget {
           leading: Icon(Icons.developer_mode,
               color: Color.fromARGB(255, 255, 69, 0)),
           onTap: () {
-            // Update the state of the app
-            // ...
-            // Then close the drawer
-            //Navigator.pop(context);
             Navigator.popAndPushNamed(context, "/subreddit");
           },
           title: const Text("Subreddit DEV")),
       ListTile(
           leading: Icon(Icons.settings, color: Color.fromARGB(255, 255, 69, 0)),
+          onTap: () {
+            Navigator.popAndPushNamed(context, "/settings");
+          },
           title: const Text("Paramètres")),
       ListTile(
           leading:
