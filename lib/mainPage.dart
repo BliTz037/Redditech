@@ -1,15 +1,8 @@
-/// Flutter code sample for BottomNavigationBar
-
-// This example shows a [BottomNavigationBar] as it is used within a [Scaffold]
-// widget. The [BottomNavigationBar] has three [BottomNavigationBarItem]
-// widgets, which means it defaults to [BottomNavigationBarType.fixed], and
-// the [currentIndex] is set to index 0. The selected item is
-// amber. The `_onItemTapped` function changes the selected item's index
-// and displays a corresponding message in the center of the [Scaffold].
-
 import 'package:flutter/material.dart';
 import 'post.dart';
 import 'drawer.dart';
+import 'package:provider/provider.dart';
+import 'userProvider.dart';
 
 class MyMainPage extends StatefulWidget {
   const MyMainPage({Key? key}) : super(key: key);

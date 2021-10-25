@@ -10,7 +10,7 @@ class MyAuthentication extends StatefulWidget {
   MyAuthenticationState createState() => MyAuthenticationState();
 }
 
-void getAccessToken(String code) async {
+Future<String> getAccessToken(String code) async {
   var dio = Dio();
   Response<Map> response = await dio.post(
       'https://K3u2sTJJTa6xgZqSYGYTGg:@www.reddit.com/api/v1/access_token',
@@ -20,14 +20,16 @@ void getAccessToken(String code) async {
         "redirect_uri": "https://127.0.0.1/"
       });
   if (response.statusCode == 200) {
-    print(response.data?['access_token']);
+    // Response<Map> res = await dio.get(
+    //   'https://oauth.reddit.com/api/v1/me',
+    //   options: Options(headers: {
+    //     "Authorization": "bearer ${response.data?['access_token']}"
+    //   }),
+    // );
+    // print(res.data);
+    return (response.data?['access_token']);
   }
-  Response<Map> res = await dio.get(
-    'https://oauth.reddit.com/api/v1/me',
-    options: Options(
-        headers: {"Authorization": "bearer ${response.data?['access_token']}"}),
-  );
-  print(res.data);
+  return "";
 }
 
 class MyAuthenticationState extends State<MyAuthentication> {
@@ -36,12 +38,12 @@ class MyAuthenticationState extends State<MyAuthentication> {
     if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
   }
 
-  var client = "K3u2sTJJTa6CounterxgZqSYGYTGg";
+  var client = "K3u2sTJJTa6xgZqSYGYTGg";
   Widget build(BuildContext context) {
-    // final user = Provider.of<UserProvider>(context);
+    final user = Provider.of<UserProvider>(context);
     return WebView(
         initialUrl:
-            'https://www.reddit.com/api/v1/authorize.compact?client_id=$client&response_type=code&state=RANDOM_STRING&redirect_uri=https://127.0.0.1/&duration=permanent&scope=identity,edit,flair,history,modconfig,modflair,modlog,modposts,modwiki,mysubreddits,privatemessages,read,report,save,submit,subscribe,vote,wikiedit,wikiread',
+            'https://www.reddit.com/api/v1/authorize.compact?client_id=$client&response_type=code&state=RAS&redirect_uri=https://127.0.0.1/&duration=permanent&scope=identity',
         onPageStarted: (String url) {
           if (url.contains("error")) {
             Navigator.pushNamed(context, '/');
@@ -54,10 +56,9 @@ class MyAuthenticationState extends State<MyAuthentication> {
           final startIndex = str.indexOf(start);
           final endIndex = str.indexOf(end, startIndex + start.length);
           final code = str.substring(startIndex + start.length, endIndex);
-          getAccessToken(code);
-          // user.setToken("yo");
-
-          // print("le user ==> " + user.token);
+          getAccessToken(code).then((val) {
+            user.setToken(val);
+          });
           Navigator.pushNamed(context, '/main');
         });
   }

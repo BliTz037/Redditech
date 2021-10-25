@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:redditech/mainPage.dart';
 import 'package:provider/provider.dart';
-import 'ProfilPage.dart';
+import 'test.dart';
 import 'SubredditPage.dart';
 import 'SettingsPage.dart';
 import 'auth.dart';
