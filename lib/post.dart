@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:share/share.dart';
 
 class InteractPost extends StatelessWidget {
   @override
@@ -32,7 +33,7 @@ class InteractPost extends StatelessWidget {
           icon: const Icon(Icons.share),
           color: Colors.grey,
           onPressed: () {
-            print("DOWN");
+            Share.share("https://www.youtube.com/watch?v=1oegwxUIrkc");
           },
         ),
         Text("Share"),
