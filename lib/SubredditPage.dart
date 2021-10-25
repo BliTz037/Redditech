@@ -77,14 +77,23 @@ class SubredditPageState extends State<SubredditPage> {
                 ),
               ),
               Align(
-                alignment: Alignment.bottomLeft + Alignment(0.7, -1.4),
+                  alignment: Alignment.topRight + Alignment(-0.02, 0),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        primary: Color.fromARGB(255, 255, 69, 0),
+                        textStyle: const TextStyle(fontSize: 12)),
+                    onPressed: () {},
+                    child: const Text('Subscribe'),
+                  )),
+              Align(
+                alignment: Alignment.bottomLeft + Alignment(1.05, -1.4),
                 child: Text(
-                  'r/evangelion',
+                  'r/evangelion • 172 972 small birds',
                   style: TextStyle(color: Colors.black54, fontSize: 12.0),
                 ),
               ),
               Align(
-                alignment: Alignment(0, 0.2),
+                alignment: Alignment.centerLeft + Alignment(0.1, 0.2),
                 child: Text(
                   'God\'s in his heaven. All\'s right with the world.',
                   style: TextStyle(color: Colors.black54, fontSize: 12.0),
