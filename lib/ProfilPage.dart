@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'post.dart';
 import 'drawer.dart';
+import 'package:provider/provider.dart';
+import 'userProvider.dart';
+import 'package:dio/dio.dart';
 
 class ProfilPage extends StatefulWidget {
   const ProfilPage({Key? key}) : super(key: key);
@@ -10,6 +13,7 @@ class ProfilPage extends StatefulWidget {
 
 class ProfilPageState extends State<ProfilPage> {
   int _selectedIndex = 0;
+  var user;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
@@ -35,6 +39,10 @@ class ProfilPageState extends State<ProfilPage> {
 
   @override
   Widget build(BuildContext context) {
+    user = Provider.of<UserProvider>(context);
+    user.fetchPost().then((val) {
+      print("val ==>" + val);
+    });
     return Scaffold(
       appBar: AppBar(
         title: const Text('Redditech'),
@@ -72,7 +80,7 @@ class ProfilPageState extends State<ProfilPage> {
               Align(
                 alignment: Alignment.topLeft + Alignment(0.8, 0.2),
                 child: Text(
-                  'u/BliTz_37',
+                  'test',
                   style: TextStyle(color: Colors.black, fontSize: 20.0),
                 ),
               ),
