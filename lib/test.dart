@@ -7,35 +7,6 @@ import 'package:provider/provider.dart';
 import 'userProvider.dart';
 import 'utils.dart';
 
-Future<Map<String, dynamic>> fetchUser(String token) async {
-  final response = await Dio().get(
-    'https://oauth.reddit.com/api/v1/me',
-    options: Options(headers: {"Authorization": "bearer $token"}),
-  );
-  if (response.statusCode == 200) {
-    print(response.data);
-    return (response.data);
-  } else {
-    // If the server did not return a 200 OK response,
-    // then throw an exception.
-    throw Exception('Failed to load User');
-  }
-}
-
-// Future<Map<String, dynamic>> fetchUser(String token) async {
-//   final response =
-//       await Dio().get('https://jsonplaceholder.typicode.com/albums/1');
-
-//   if (response.statusCode == 200) {
-//     print(response.data);
-//     return (response.data);
-//   } else {
-//     // If the server did not return a 200 OK response,
-//     // then throw an exception.
-//     throw Exception('Failed to load User');
-//   }
-// }
-
 class ProfilPage extends StatefulWidget {
   const ProfilPage({Key? key}) : super(key: key);
 
@@ -44,19 +15,25 @@ class ProfilPage extends StatefulWidget {
 }
 
 class _ProfilPageState extends State<ProfilPage> {
-  var token = "";
   @override
   void initState() {
     super.initState();
-    fetchUser(token);
+    // fetchUser(token);
   }
 
   @override
   Widget build(BuildContext context) {
+    // context.read<UserProvider>();
     final user = Provider.of<UserProvider>(context);
-    token = user.token;
+    // List<Map<String, dynamic>> test = [];
+    // user.fetchSubreddits().then((val) {
+    //   test = val;
+    // });
+    // for (int i = 0; i < test.length; i++) {
+    //   print(test[i]);
+    // }
     return FutureBuilder<Map<String, dynamic>>(
-      future: fetchUser(token),
+      future: user.fetchUserDetails(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return Scaffold(
@@ -72,10 +49,11 @@ class _ProfilPageState extends State<ProfilPage> {
                   height: 100,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      fit: BoxFit.fill,
-                      image: NetworkImage(
-                          "https://pbs.twimg.com/media/D-jnKUPU4AE3hVR.jpg"),
-                    ),
+                        fit: BoxFit.fill,
+                        image: NetworkImage(
+                            "https://styles.redditmedia.com/t5_2r6ex/styles/bannerBackgroundImage_zxzfrfilp0n61.jpg")
+                        // setParseImage(snapshot.data!['banner_img'])),
+                        ),
                   ),
                 ),
                 Container(
@@ -146,7 +124,7 @@ class _ProfilPageState extends State<ProfilPage> {
         }
 
         // By default, show a loading spinner.
-        return const CircularProgressIndicator();
+        return const Center(child: CircularProgressIndicator());
       },
     );
   }
