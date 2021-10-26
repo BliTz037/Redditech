@@ -74,7 +74,7 @@ class _ProfilPageState extends State<ProfilPage> {
                     image: DecorationImage(
                       fit: BoxFit.fill,
                       image: NetworkImage(
-                          "https://pbs.twimg.com/media/D-jnKUPU4AE3hVR.jpg"),
+                          setParseImage(snapshot.data!['subreddit']["banner_img"])),
                     ),
                   ),
                 ),
@@ -96,21 +96,21 @@ class _ProfilPageState extends State<ProfilPage> {
                     Align(
                       alignment: Alignment.topLeft + Alignment(0.8, 0.2),
                       child: Text(
-                        snapshot.data!['name'],
+                        "u/${snapshot.data!['name']}" ,
                         style: TextStyle(color: Colors.black, fontSize: 20.0),
                       ),
                     ),
                     Align(
                       alignment: Alignment.bottomLeft + Alignment(1.05, -1.4),
                       child: Text(
-                        '${snapshot.data!['total_karma']} karma • 3 ans • 4 juil. 2018',
+                        '${snapshot.data!['total_karma']} karma • ${setTime(snapshot.data!['created'])}',
                         style: TextStyle(color: Colors.black54, fontSize: 12.0),
                       ),
                     ),
                     Align(
-                      alignment: Alignment(30, 0.2),
+                      alignment: Alignment(0, 0.2),
                       child: Text(
-                        'Le train de tes injures roule sur le rail de mon indifférence - George Abitbol',
+                        snapshot.data!['subreddit']['public_description'],
                         style: TextStyle(color: Colors.black54, fontSize: 12.0),
                       ),
                     ),
