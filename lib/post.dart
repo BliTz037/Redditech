@@ -73,29 +73,9 @@ class InteractPost extends StatelessWidget {
 
 class Posts extends StatelessWidget {
   var _user;
-  var _urlUserProfilePicture;
-  var _subreddit;
-  var _timestamp;
-  var _title;
-  var _textContent;
-  var _urlImageContent;
-  var _votesCounter;
-  var _unvotesCounter;
-  var _commentsCounter;
-  var _urlPost;
 
   Posts.empty() {
     this._user = "Unknown";
-    this._urlUserProfilePicture = "";
-    this._subreddit = "Unknown";
-    this._timestamp = 0;
-    this._title = "Unknown";
-    this._textContent = "";
-    this._urlImageContent = "";
-    this._votesCounter = 0;
-    this._unvotesCounter = 0;
-    this._commentsCounter = 0;
-    this._urlPost = "localhost/";
   }
 
   Posts(var name) {

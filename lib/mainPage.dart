@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'post.dart';
 import 'drawer.dart';
-// import 'package:provider/provider.dart';
-// import 'userProvider.dart';
+import 'package:provider/provider.dart';
+import 'userProvider.dart';
 
 class MyMainPage extends StatefulWidget {
   const MyMainPage({Key? key}) : super(key: key);
@@ -21,6 +21,27 @@ class MyMainPageState extends State<MyMainPage> {
     });
   }
 
+  Widget projectWidget() {
+    final user = Provider.of<UserProvider>(context);
+
+    return FutureBuilder(
+        future: user.fetchSubreddits(),
+        builder: (context, AsyncSnapshot snapshot) {
+          if (!snapshot.hasData) {
+            return Center(child: CircularProgressIndicator());
+          } else {
+            return ListView.builder(
+              itemCount: snapshot.data.length,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                PostType project = snapshot.data![index];
+                return Text(project.title);
+              },
+            );
+          }
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,14 +50,7 @@ class MyMainPageState extends State<MyMainPage> {
         backgroundColor: Color.fromARGB(255, 255, 69, 0),
       ),
       drawer: MyDrawer(),
-      body: ListView(
-        children: <Widget>[
-          Posts("Phillipe"),
-          Posts("Henry"),
-          Posts("Mbappé"),
-          Posts("Louis"),
-        ],
-      ),
+      body: projectWidget(),
       backgroundColor: Colors.grey.shade800,
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[

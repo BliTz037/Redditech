@@ -33,7 +33,7 @@ class MyDrawerHeader extends StatelessWidget {
               alignment: Alignment.centerRight + Alignment(-0.3, 0),
               child: Text(
                 'u/${user.username}',
-                style: TextStyle(color: Colors.white, fontSize: 25.0),
+                style: TextStyle(color: Colors.white, fontSize: 20.0),
               ),
             ),
             Align(

@@ -52,8 +52,9 @@ class MyAuthenticationState extends State<MyAuthentication> {
           final code = str.substring(startIndex + start.length, endIndex);
           getAccessToken(code).then((val) {
             user.setToken(val);
+            user.fetchUserDetails();
+            Navigator.pushNamed(context, '/main');
           });
-          Navigator.pushNamed(context, '/main');
         });
   }
 }
