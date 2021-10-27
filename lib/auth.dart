@@ -20,13 +20,7 @@ Future<String> getAccessToken(String code) async {
         "redirect_uri": "https://127.0.0.1/"
       });
   if (response.statusCode == 200) {
-    // Response<Map> res = await dio.get(
-    //   'https://oauth.reddit.com/api/v1/me',
-    //   options: Options(headers: {
-    //     "Authorization": "bearer ${response.data?['access_token']}"
-    //   }),
-    // );
-    // print(res.data);
+    print("access_token ==> " + response.data?['access_token']);
     return (response.data?['access_token']);
   }
   return "";
@@ -43,7 +37,7 @@ class MyAuthenticationState extends State<MyAuthentication> {
     final user = Provider.of<UserProvider>(context);
     return WebView(
         initialUrl:
-            'https://www.reddit.com/api/v1/authorize.compact?client_id=$client&response_type=code&state=RAS&redirect_uri=https://127.0.0.1/&duration=permanent&scope=identity',
+            'https://www.reddit.com/api/v1/authorize.compact?client_id=$client&response_type=code&state=RAS&redirect_uri=https://127.0.0.1/&duration=permanent&scope=identity+read',
         onPageStarted: (String url) {
           if (url.contains("error")) {
             Navigator.pushNamed(context, '/');

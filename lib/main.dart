@@ -1,20 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:redditech/mainPage.dart';
 import 'package:provider/provider.dart';
-import 'test.dart';
+import 'ProfilPage.dart';
 import 'SubredditPage.dart';
 import 'SettingsPage.dart';
 import 'auth.dart';
 import 'userProvider.dart';
 
 void main() {
-  // runApp(MaterialApp(
-  //     initialRoute: '/',
-  //     routes: {
-  //       '/': (context) => MyAuthentication(),
-  //       '/main': (context) => MyMainPage(),
-  //     },
-  //   ),)
   runApp(const MyApp());
 }
 
@@ -23,13 +16,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: ChangeNotifierProvider(
-          create: (_) => UserProvider(), child: const MyRoute()),
+    return MultiProvider(
+      providers: [ChangeNotifierProvider(create: (_) => UserProvider())],
+      child: const MyRoute(),
     );
   }
 }

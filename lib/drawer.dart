@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'userProvider.dart';
+import 'package:provider/provider.dart';
+import 'utils.dart';
 
 class MyDrawerHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<UserProvider>(context);
     return DrawerHeader(
         decoration: BoxDecoration(
           image: DecorationImage(
@@ -21,20 +25,21 @@ class MyDrawerHeader extends StatelessWidget {
                 child: CircleAvatar(
                   backgroundColor: Color.fromARGB(255, 255, 69, 0),
                   radius: 50.0,
-                  backgroundImage:
-                      NetworkImage('https://i.ibb.co/hLnvQWQ/images.jpg'),
+                  backgroundImage: NetworkImage(user.icon.length == 0
+                      ? "https://www.net-aware.org.uk/siteassets/images-and-icons/application-icons/app-icons-reddit.png?w=585&scale=down"
+                      : setParseImage(user.icon)),
                 )),
             Align(
               alignment: Alignment.centerRight + Alignment(-0.3, 0),
               child: Text(
-                'u/BliTz_37',
+                'u/${user.username}',
                 style: TextStyle(color: Colors.white, fontSize: 25.0),
               ),
             ),
             Align(
               alignment: Alignment.centerRight + Alignment(-0.4, 0.5),
               child: Text(
-                '14545 karma',
+                '${user.karma} karma',
                 style: TextStyle(color: Colors.white, fontSize: 15.0),
               ),
             )
@@ -56,7 +61,6 @@ class MyDrawer extends StatelessWidget {
             Navigator.popAndPushNamed(context, "/profil");
           },
           title: const Text("Profil")),
-      //TO DO DELETE when is ready
       ListTile(
           leading: Icon(Icons.developer_mode,
               color: Color.fromARGB(255, 255, 69, 0)),

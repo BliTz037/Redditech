@@ -1,6 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';
 
+class PostType {
+  final String title, permalink, author, nbComments, url, ups, subreddit;
+
+  PostType({
+    required this.title,
+    required this.permalink,
+    required this.author,
+    required this.nbComments,
+    required this.url,
+    required this.ups,
+    required this.subreddit,
+  });
+
+  factory PostType.fromJson(Map<String, dynamic> json) {
+    return new PostType(
+      title: json['data']['title'].toString(),
+      permalink: json['data']['permalink'].toString(),
+      author: json['data']['author'].toString(),
+      nbComments: json['data']['num_comments'].toString(),
+      url: json['data']['url'].toString(),
+      ups: json['data']['ups'].toString(),
+      subreddit: json['data']['subreddit'].toString(),
+    );
+  }
+}
+
 class InteractPost extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
