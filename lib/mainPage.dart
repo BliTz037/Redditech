@@ -48,6 +48,16 @@ class MyMainPageState extends State<MyMainPage> {
       appBar: AppBar(
         title: const Text('Redditech'),
         backgroundColor: Color.fromARGB(255, 255, 69, 0),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.manage_search),
+            color: Colors.white,
+            iconSize: 30,
+            onPressed: () async {
+              Navigator.pushNamed(context, '/searchSub');
+            },
+          ),
+        ],
       ),
       drawer: MyDrawer(),
       body: projectWidget(),

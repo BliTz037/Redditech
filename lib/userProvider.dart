@@ -29,9 +29,9 @@ class UserProvider with ChangeNotifier {
     }
   }
 
-  Future<List<PostType>> fetchSearchSubreddits() async {
+  Future<List<PostType>> fetchSearchSubreddits(String search) async {
     final response = await Dio().get(
-      'https://oauth.reddit.com/subreddits/search/?q=',
+      'https://oauth.reddit.com/subreddits/search/?q=$search',
       options: Options(headers: {"Authorization": "bearer $token"}),
     );
     var listPost = response.data!['data']!['children'] as List;
@@ -46,7 +46,7 @@ class UserProvider with ChangeNotifier {
   Future<List<PostType>> fetchSubreddits() async {
     print("Hello request");
     final response = await Dio().get(
-      'https://oauth.reddit.com',
+      'https://oauth.reddit.com/hot',
       options: Options(headers: {"Authorization": "bearer $token"}),
     );
     var listPost = response.data!['data']!['children'] as List;
