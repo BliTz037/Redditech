@@ -80,7 +80,7 @@ class _ProfilPageState extends State<ProfilPage> {
                     ),
                   ]),
                 ),
-                Posts("Phillipe"),
+                //Posts("Phillipe"),
               ],
             ),
             backgroundColor: Colors.grey.shade800,

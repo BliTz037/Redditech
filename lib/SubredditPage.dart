@@ -101,7 +101,7 @@ class SubredditPageState extends State<SubredditPage> {
               ),
             ]),
           ),
-          Posts("Phillipe"),
+          //Posts("Phillipe"),
         ],
       ),
       backgroundColor: Colors.grey.shade800,
