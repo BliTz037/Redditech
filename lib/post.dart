@@ -1,52 +1,88 @@
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';
-import 'package:dio/dio.dart';
+import 'utils.dart';
+import 'package:provider/provider.dart';
+import 'userProvider.dart';
 
 class PostType {
   final String title, permalink, author, nbComments, url, ups, subreddit;
+  final bool isSelf, isVideo;
+  final double created;
+  final String urlVideo;
+  final String selftext;
+  final String statusVote;
+  final String nameVote;
 
-  PostType({
-    required this.title,
-    required this.permalink,
-    required this.author,
-    required this.nbComments,
-    required this.url,
-    required this.ups,
-    required this.subreddit,
-  });
+  PostType(
+      {required this.title,
+      required this.permalink,
+      required this.author,
+      required this.nbComments,
+      required this.created,
+      required this.url,
+      required this.ups,
+      required this.subreddit,
+      required this.isSelf,
+      required this.isVideo,
+      required this.urlVideo,
+      required this.selftext,
+      required this.statusVote,
+      required this.nameVote});
 
   factory PostType.fromJson(Map<String, dynamic> json) {
     return new PostType(
-      title: json['data']['title'].toString(),
-      permalink: json['data']['permalink'].toString(),
-      author: json['data']['author'].toString(),
-      nbComments: json['data']['num_comments'].toString(),
-      url: json['data']['url'].toString(),
-      ups: json['data']['ups'].toString(),
-      subreddit: json['data']['subreddit'].toString(),
+      title: json['data']!['title'].toString(),
+      permalink: json['data']!['permalink'].toString(),
+      author: json['data']!['author'].toString(),
+      nbComments: json['data']!['num_comments'].toString(),
+      url: json['data']!['url'].toString(),
+      ups: json['data']!['ups'].toString(),
+      created: json['data']!['created'],
+      subreddit: json['data']!['subreddit'].toString(),
+      isSelf: json['data']!['is_self'],
+      isVideo: json['data']!['is_video'],
+      urlVideo: "",
+      selftext: "",
+      statusVote: json['data']!['likes'].toString(),
+      nameVote: json['data']!['name'].toString(),
     );
   }
 }
 
 class InteractPost extends StatelessWidget {
+  final PostType postType;
+
+  InteractPost({required this.postType});
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<UserProvider>(context);
+    print("statusVote ===>" +
+        postType.statusVote.toString() +
+        "  && name ===> " +
+        postType.nameVote);
     return Row(
       children: <Widget>[
         IconButton(
           icon: const Icon(Icons.arrow_upward),
-          color: Colors.red,
+          color: postType.statusVote == "true" ? Colors.red : Colors.grey,
           onPressed: () async {
-            Dio().post("");
-            print("UP");
+            if (postType.statusVote == "true") {
+              user.postVote(postType.nameVote, "0");
+            } else {
+              user.postVote(postType.nameVote, "1");
+            }
           },
         ),
-        Text("31.7k"),
+        Text(postType.ups),
         IconButton(
           icon: const Icon(Icons.arrow_downward_sharp),
-          color: Colors.red,
+          color: postType.statusVote == "false" ? Colors.red : Colors.grey,
           onPressed: () async {
-            print("DOWN");
+            if (postType.statusVote == "false") {
+              user.postVote(postType.nameVote, "0");
+            } else {
+              user.postVote(postType.nameVote, "-1");
+            }
           },
         ),
         IconButton(
@@ -56,12 +92,12 @@ class InteractPost extends StatelessWidget {
             print("COMMENT");
           },
         ),
-        Text("94"),
+        Text(postType.nbComments),
         IconButton(
           icon: const Icon(Icons.share),
           color: Colors.grey,
           onPressed: () {
-            Share.share("https://www.youtube.com/watch?v=1oegwxUIrkc");
+            Share.share("https://www.reddit.com" + postType.permalink);
           },
         ),
         Text("Share"),
@@ -74,14 +110,45 @@ class InteractPost extends StatelessWidget {
 }
 
 class Posts extends StatelessWidget {
-  var _user;
+  final PostType postType;
 
-  Posts.empty() {
-    this._user = "Unknown";
-  }
+  Posts({required this.postType});
 
-  Posts(var name) {
-    this._user = name;
+  Widget getContent() {
+    print("Création");
+
+    if (!postType.isSelf) {
+      if (postType.isVideo) {
+        return Container(
+          margin: const EdgeInsets.all(10),
+          child: Text("Insert videolink ${postType.urlVideo}"),
+        );
+      }
+      if (postType.url.contains("https://i.redd.it/")) {
+        return Container(
+            margin: const EdgeInsets.all(10),
+            child: Image.network(
+              postType.url,
+              errorBuilder: (BuildContext context, Object exception,
+                  StackTrace? stackTrace) {
+                return const Text('Cannot load this image');
+              },
+            ));
+      } else {
+        return Container(
+            alignment: Alignment.bottomLeft,
+            child: Padding(
+              padding: EdgeInsets.all(10),
+              child: Text(postType.url),
+            ));
+      }
+    }
+    return Container(
+        alignment: Alignment.bottomLeft,
+        child: Padding(
+          padding: EdgeInsets.all(10),
+          child: Text(postType.selftext),
+        ));
   }
 
   @override
@@ -95,13 +162,14 @@ class Posts extends StatelessWidget {
               leading: CircleAvatar(
                   backgroundImage: NetworkImage(
                       "https://www.journaldugeek.com/content/uploads/2021/03/xbox-1.jpg")),
-              title: Text('r/' + _user),
-              subtitle: Text('u/jsbibatea | 6d')),
+              title: Text('r/' + postType.subreddit),
+              subtitle:
+                  Text('u/${postType.author} | ${getTime(postType.created)}')),
           Container(
               alignment: Alignment.bottomLeft,
               child: Padding(
                 padding: EdgeInsets.all(10),
-                child: const Text("You're pretty good !",
+                child: Text(postType.title,
                     style: const TextStyle(
                         fontWeight: FontWeight.bold, fontSize: 18)),
               )),
@@ -118,18 +186,23 @@ class Posts extends StatelessWidget {
           //       child: const Text(
           //           'A l\'issue de débats souvent électriques, l\'Assemblée nationale a donné dans la nuit du mercredi 20 au jeudi 21 octobre, un premier feu vert au projet de loi "vigilance sanitaire", avec la possibilité de recourir au pass sanitaire jusqu\'au 31 juillet 2022.'),
           //     )),
-          Container(
-            margin: const EdgeInsets.all(10),
-            child: Image(
-                image: NetworkImage('https://i.redd.it/5ap6kaz58mu71.png')),
-          ),
+          // Container(
+          //     margin: const EdgeInsets.all(10),
+          //     child: Image.network(
+          //       postType.url,
+          //       errorBuilder: (BuildContext context, Object exception,
+          //           StackTrace? stackTrace) {
+          //         return const Text('Cannot load this image');
+          //       },
+          //     )),
+          getContent(),
           const Divider(
             height: 0,
             thickness: 0.5,
             indent: 0,
             endIndent: 0,
           ),
-          InteractPost()
+          InteractPost(postType: postType)
         ]));
   }
 }

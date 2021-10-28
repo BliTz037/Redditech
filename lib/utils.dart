@@ -18,3 +18,8 @@ String setTime(double timestamp) {
   str += "• ${date.day}/${date.month}/${date.year}";
   return str;
 }
+
+String getTime(double timestamp) {
+  var date = DateTime.fromMillisecondsSinceEpoch(timestamp.toInt() * 1000);
+  return "${date.day}/${date.month}/${date.year} ${date.hour}:${date.minute}";
+}

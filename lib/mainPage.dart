@@ -23,9 +23,9 @@ class MyMainPageState extends State<MyMainPage> {
 
   Widget projectWidget() {
     final user = Provider.of<UserProvider>(context);
-
+    Future<List<PostType>> test = user.fetchSubreddits();
     return FutureBuilder(
-        future: user.fetchSubreddits(),
+        future: test,
         builder: (context, AsyncSnapshot snapshot) {
           if (!snapshot.hasData) {
             return Center(child: CircularProgressIndicator());
@@ -34,7 +34,8 @@ class MyMainPageState extends State<MyMainPage> {
               itemCount: snapshot.data.length,
               itemBuilder: (context, index) {
                 PostType project = snapshot.data![index];
-                return (Posts(project.author));
+                print(project.url);
+                return Posts(postType: project);
               },
             );
           }

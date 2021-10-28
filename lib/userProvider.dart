@@ -29,15 +29,44 @@ class UserProvider with ChangeNotifier {
     }
   }
 
-  Future<List<PostType>> fetchSubreddits() async {
+  Future<List<PostType>> fetchSearchSubreddits() async {
     final response = await Dio().get(
-      'https://oauth.reddit.com/',
+      'https://oauth.reddit.com/subreddits/search/?q=',
       options: Options(headers: {"Authorization": "bearer $token"}),
     );
     var listPost = response.data!['data']!['children'] as List;
     if (response.statusCode == 200) {
       notifyListeners();
       return listPost.map<PostType>((post) => PostType.fromJson(post)).toList();
+    } else {
+      throw Exception('Failed to load User');
+    }
+  }
+
+  Future<List<PostType>> fetchSubreddits() async {
+    print("Hello request");
+    final response = await Dio().get(
+      'https://oauth.reddit.com/hot',
+      options: Options(headers: {"Authorization": "bearer $token"}),
+    );
+    var listPost = response.data!['data']!['children'] as List;
+    if (response.statusCode == 200) {
+      notifyListeners();
+      return listPost.map<PostType>((post) => PostType.fromJson(post)).toList();
+    } else {
+      throw Exception('Failed to load User');
+    }
+  }
+
+  void postVote(String name, String statusVote) async {
+    final response = await Dio().post(
+      'https://oauth.reddit.com/api/vote/?id=$name&dir=$statusVote',
+      options: Options(headers: {"Authorization": "bearer $token"}),
+    );
+    print(response.data);
+    if (response.statusCode == 200) {
+      notifyListeners();
+      return;
     } else {
       throw Exception('Failed to load User');
     }
