@@ -50,7 +50,7 @@ class MyMainPageState extends State<MyMainPage> {
         backgroundColor: Color.fromARGB(255, 255, 69, 0),
       ),
       drawer: MyDrawer(),
-      body: projectWidget(),
+      //body: projectWidget(),
       backgroundColor: Colors.grey.shade800,
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[

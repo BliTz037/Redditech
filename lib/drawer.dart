@@ -68,6 +68,15 @@ class MyDrawer extends StatelessWidget {
             Navigator.popAndPushNamed(context, "/subreddit");
           },
           title: const Text("Subreddit DEV")),
+
+      ListTile(
+          leading: Icon(Icons.developer_mode,
+              color: Color.fromARGB(255, 255, 69, 0)),
+          onTap: () {
+            Navigator.popAndPushNamed(context, "/tab");
+          },
+          title: const Text("Tab DEV")),
+
       ListTile(
           leading: Icon(Icons.settings, color: Color.fromARGB(255, 255, 69, 0)),
           onTap: () {
