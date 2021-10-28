@@ -46,7 +46,7 @@ class UserProvider with ChangeNotifier {
   Future<List<PostType>> fetchSubreddits() async {
     print("Hello request");
     final response = await Dio().get(
-      'https://oauth.reddit.com/hot',
+      'https://oauth.reddit.com',
       options: Options(headers: {"Authorization": "bearer $token"}),
     );
     var listPost = response.data!['data']!['children'] as List;

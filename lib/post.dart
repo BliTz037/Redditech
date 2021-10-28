@@ -30,6 +30,12 @@ class PostType {
       required this.nameVote});
 
   factory PostType.fromJson(Map<String, dynamic> json) {
+    String urlVideo = "";
+
+    if (json['data']['secure_media'] != null &&
+        json['data']['secure_media'].containsKey('reddit_video'))
+      urlVideo = json['data']['secure_media']['reddit_video']['fallback_url'];
+
     return new PostType(
       title: json['data']!['title'].toString(),
       permalink: json['data']!['permalink'].toString(),
@@ -41,8 +47,8 @@ class PostType {
       subreddit: json['data']!['subreddit'].toString(),
       isSelf: json['data']!['is_self'],
       isVideo: json['data']!['is_video'],
-      urlVideo: "",
-      selftext: "",
+      urlVideo: urlVideo,
+      selftext: json['data']!['selftext'] ?? "",
       statusVote: json['data']!['likes'].toString(),
       nameVote: json['data']!['name'].toString(),
     );
