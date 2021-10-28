@@ -32,10 +32,9 @@ class MyMainPageState extends State<MyMainPage> {
           } else {
             return ListView.builder(
               itemCount: snapshot.data.length,
-              scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
                 PostType project = snapshot.data![index];
-                return Text(project.title);
+                return (Posts(project.author));
               },
             );
           }

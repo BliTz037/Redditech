@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';
+import 'package:dio/dio.dart';
 
 class PostType {
   final String title, permalink, author, nbComments, url, ups, subreddit;
@@ -35,7 +36,8 @@ class InteractPost extends StatelessWidget {
         IconButton(
           icon: const Icon(Icons.arrow_upward),
           color: Colors.red,
-          onPressed: () {
+          onPressed: () async {
+            Dio().post("");
             print("UP");
           },
         ),
@@ -43,7 +45,7 @@ class InteractPost extends StatelessWidget {
         IconButton(
           icon: const Icon(Icons.arrow_downward_sharp),
           color: Colors.red,
-          onPressed: () {
+          onPressed: () async {
             print("DOWN");
           },
         ),
@@ -51,7 +53,7 @@ class InteractPost extends StatelessWidget {
           icon: const Icon(Icons.chat_bubble_outline),
           color: Colors.grey,
           onPressed: () {
-            print("DOWN");
+            print("COMMENT");
           },
         ),
         Text("94"),
