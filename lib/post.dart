@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:share/share.dart';
 import 'utils.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'userProvider.dart';
 
 class PostType {
@@ -142,7 +143,10 @@ class Posts extends StatelessWidget {
             alignment: Alignment.bottomLeft,
             child: Padding(
               padding: EdgeInsets.all(10),
-              child: Text(postType.url),
+              child: InkWell(
+                child: Text("Ouvrir le lien", style: TextStyle(decoration: TextDecoration.underline, color: Colors.blue, fontSize: 20)),
+                onTap: () => launch(postType.url)
+                ),
             ));
       }
     }
