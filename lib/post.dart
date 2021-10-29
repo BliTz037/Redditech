@@ -37,20 +37,20 @@ class PostType {
       urlVideo = json['data']['secure_media']['reddit_video']['fallback_url'];
 
     return new PostType(
-      title: json['data']!['title'].toString(),
-      permalink: json['data']!['permalink'].toString(),
-      author: json['data']!['author'].toString(),
+      title: json['data']!['title'],
+      permalink: json['data']!['permalink'],
+      author: json['data']!['author'],
       nbComments: json['data']!['num_comments'].toString(),
-      url: json['data']!['url'].toString(),
+      url: json['data']!['url'],
       ups: json['data']!['ups'].toString(),
       created: json['data']!['created'],
-      subreddit: json['data']!['subreddit'].toString(),
+      subreddit: json['data']!['subreddit'],
       isSelf: json['data']!['is_self'],
       isVideo: json['data']!['is_video'],
       urlVideo: urlVideo,
       selftext: json['data']!['selftext'] ?? "",
       statusVote: json['data']!['likes'].toString(),
-      nameVote: json['data']!['name'].toString(),
+      nameVote: json['data']!['name'],
     );
   }
 }
@@ -107,9 +107,6 @@ class InteractPost extends StatelessWidget {
           },
         ),
         Text("Share"),
-        // GestureDetector(
-        //   onTap: () { print("Share");},
-        // )
       ],
     );
   }
@@ -185,22 +182,6 @@ class Posts extends StatelessWidget {
             indent: 0,
             endIndent: 0,
           ),
-          // Container(
-          //     alignment: Alignment.bottomLeft,
-          //     child: Padding(
-          //       padding: EdgeInsets.all(10),
-          //       child: const Text(
-          //           'A l\'issue de débats souvent électriques, l\'Assemblée nationale a donné dans la nuit du mercredi 20 au jeudi 21 octobre, un premier feu vert au projet de loi "vigilance sanitaire", avec la possibilité de recourir au pass sanitaire jusqu\'au 31 juillet 2022.'),
-          //     )),
-          // Container(
-          //     margin: const EdgeInsets.all(10),
-          //     child: Image.network(
-          //       postType.url,
-          //       errorBuilder: (BuildContext context, Object exception,
-          //           StackTrace? stackTrace) {
-          //         return const Text('Cannot load this image');
-          //       },
-          //     )),
           getContent(),
           const Divider(
             height: 0,

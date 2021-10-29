@@ -15,12 +15,6 @@ class MyMainPageState extends State<MyMainPage> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
   Widget projectWidget() {
     final user = Provider.of<UserProvider>(context);
     Future<List<PostType>> test = user.fetchSubreddits();
@@ -53,7 +47,7 @@ class MyMainPageState extends State<MyMainPage> {
             icon: const Icon(Icons.manage_search),
             color: Colors.white,
             iconSize: 30,
-            onPressed: () async {
+            onPressed: () {
               Navigator.pushNamed(context, '/searchSub');
             },
           ),
@@ -79,7 +73,6 @@ class MyMainPageState extends State<MyMainPage> {
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Color.fromARGB(255, 255, 69, 0),
-        onTap: _onItemTapped,
       ),
     );
   }

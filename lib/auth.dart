@@ -43,6 +43,7 @@ class MyAuthenticationState extends State<MyAuthentication> {
             Navigator.pushNamed(context, '/');
             return;
           }
+          if (!url.contains("code=")) return;
           var str = url;
           print(url);
           const start = "code=";
