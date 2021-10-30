@@ -7,7 +7,6 @@ import 'SettingsPage.dart';
 import 'auth.dart';
 import 'userProvider.dart';
 import 'searchSub.dart';
-import 'tab.dart';
 
 void main() {
   runApp(const MyApp());
@@ -40,7 +39,6 @@ class MyRoute extends StatelessWidget {
         '/subreddit': (context) => SubredditPage(),
         '/settings': (context) => SettingsPage(),
         '/searchSub': (context) => MainSearchSub(),
-        '/tab': (context) => TabPage()
       },
     );
   }

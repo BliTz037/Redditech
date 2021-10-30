@@ -62,10 +62,6 @@ class InteractPost extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<UserProvider>(context);
-    print("statusVote ===>" +
-        postType.statusVote.toString() +
-        "  && name ===> " +
-        postType.nameVote);
     return Row(
       children: <Widget>[
         IconButton(
@@ -118,8 +114,6 @@ class Posts extends StatelessWidget {
   Posts({required this.postType});
 
   Widget getContent() {
-    print("Création");
-
     if (!postType.isSelf) {
       if (postType.isVideo) {
         return Container(

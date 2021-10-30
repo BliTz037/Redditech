@@ -15,11 +15,10 @@ class MyMainPageState extends State<MyMainPage> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
-  Widget projectWidget() {
+  Widget projectWidget(String tag) {
     final user = Provider.of<UserProvider>(context);
-    Future<List<PostType>> test = user.fetchSubreddits();
     return FutureBuilder(
-        future: test,
+        future: user.fetchSubreddits(tag),
         builder: (context, AsyncSnapshot snapshot) {
           if (!snapshot.hasData) {
             return Center(child: CircularProgressIndicator());
@@ -28,7 +27,6 @@ class MyMainPageState extends State<MyMainPage> {
               itemCount: snapshot.data.length,
               itemBuilder: (context, index) {
                 PostType project = snapshot.data![index];
-                print(project.url);
                 return Posts(postType: project);
               },
             );
@@ -38,42 +36,60 @@ class MyMainPageState extends State<MyMainPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Redditech'),
-        backgroundColor: Color.fromARGB(255, 255, 69, 0),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.manage_search),
-            color: Colors.white,
-            iconSize: 30,
-            onPressed: () {
-              Navigator.pushNamed(context, '/searchSub');
-            },
+    return DefaultTabController(
+        length: 3,
+        child: Scaffold(
+          appBar: AppBar(
+            title: const Text('Redditech'),
+            backgroundColor: Color.fromARGB(255, 255, 69, 0),
+            bottom: TabBar(
+              tabs: [
+                Tab(icon: Icon(Icons.favorite), text: "Best"),
+                Tab(
+                  icon: Icon(Icons.local_fire_department_sharp),
+                  text: "Hot",
+                ),
+                Tab(icon: Icon(Icons.new_releases), text: "New")
+              ],
+            ),
+            actions: [
+              IconButton(
+                icon: const Icon(Icons.manage_search),
+                color: Colors.white,
+                iconSize: 30,
+                onPressed: () {
+                  Navigator.pushNamed(context, '/searchSub');
+                },
+              ),
+            ],
           ),
-        ],
-      ),
-      drawer: MyDrawer(),
-      body: projectWidget(),
-      backgroundColor: Colors.grey.shade800,
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
+          drawer: MyDrawer(),
+          body: TabBarView(
+            children: [
+              projectWidget(""),
+              projectWidget("/hot"),
+              projectWidget("/new"),
+            ],
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.add),
-            label: 'Post',
+          backgroundColor: Colors.grey.shade800,
+          bottomNavigationBar: BottomNavigationBar(
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                label: 'Home',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.add),
+                label: 'Post',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.settings),
+                label: 'Settings',
+              ),
+            ],
+            currentIndex: _selectedIndex,
+            selectedItemColor: Color.fromARGB(255, 255, 69, 0),
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Settings',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Color.fromARGB(255, 255, 69, 0),
-      ),
-    );
+        ));
   }
 }
