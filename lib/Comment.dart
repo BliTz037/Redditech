@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';
+import 'utils.dart';
 
 class CommentType {
   final String author, ups, content, url;
@@ -37,7 +38,7 @@ class Comments extends StatelessWidget {
           ListTile(
               leading: CircleAvatar(
                   backgroundImage: AssetImage('images/redditIcon.png')),
-              title: Text('${commentType.author} | 30/10/2021'),
+              title: Text('${commentType.author} | ${getTime(commentType.created)}'),
               ),
           Container(
               alignment: Alignment.bottomLeft,
@@ -52,43 +53,16 @@ class Comments extends StatelessWidget {
             indent: 0,
             endIndent: 0,
           ),
-          InteractComments()
+          InteractComments(commentType: commentType,)
         ]));
   }
 }
-
-class SubComments extends StatelessWidget {
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-        margin: EdgeInsets.all(5),
-        color: Colors.white70,
-        child: Column(children: <Widget>[
-          ListTile(
-              leading: CircleAvatar(
-                  backgroundImage: AssetImage('images/redditIcon.png')),
-              title: Text('r/ConnardDeRandom | 30/10/2021'),
-              ),
-          Container(
-              alignment: Alignment.bottomLeft,
-              child: Padding(
-                padding: EdgeInsets.all(5),
-                child: Text("Ratio + Grenouille de la honte + Supprime ton compte",
-                    style: const TextStyle()),
-              )),
-            const Divider(
-            height: 0,
-            thickness: 0.5,
-            indent: 0,
-            endIndent: 0,
-          ),
-          InteractComments(),
-        ]));
-  }
-}
-
 class InteractComments extends StatelessWidget {
+  
+  final CommentType commentType;
+
+  InteractComments({required this.commentType});
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -98,7 +72,7 @@ class InteractComments extends StatelessWidget {
           color: Colors.grey,
           onPressed: () async {},
         ),
-        Text("0"),
+        Text(commentType.ups),
         IconButton(
           icon: const Icon(Icons.arrow_downward_sharp),
           color: Colors.grey,
@@ -108,7 +82,7 @@ class InteractComments extends StatelessWidget {
           icon: const Icon(Icons.share),
           color: Colors.grey,
           onPressed: () {
-            Share.share("https://www.reddit.com");
+            Share.share("https://www.reddit.com${commentType.url}");
           },
         ),
         Text("Share"),
