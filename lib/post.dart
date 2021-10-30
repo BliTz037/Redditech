@@ -161,8 +161,6 @@ class Posts extends StatelessWidget {
         margin: EdgeInsets.all(15),
         child: Column(children: <Widget>[
           ListTile(
-              //leading: FlutterLogo(),
-              //leading: CircleAvatar(backgroundColor: Colors.brown.shade800, child: const Text('X')),
               leading: CircleAvatar(
                   backgroundImage: AssetImage('images/redditIcon.png')),
               title: Text('r/' + postType.subreddit),
