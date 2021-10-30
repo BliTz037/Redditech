@@ -138,9 +138,12 @@ class Posts extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.all(10),
               child: InkWell(
-                child: Text("Ouvrir le lien", style: TextStyle(decoration: TextDecoration.underline, color: Colors.blue, fontSize: 20)),
-                onTap: () => launch(postType.url)
-                ),
+                  child: Text("Ouvrir le lien",
+                      style: TextStyle(
+                          decoration: TextDecoration.underline,
+                          color: Colors.blue,
+                          fontSize: 20)),
+                  onTap: () => launch(postType.url)),
             ));
       }
     }

@@ -1,7 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'userProvider.dart';
+import 'utils.dart';
+
+class SearchSubType {
+  final String title, communityIcon, name, nbMembers, description;
+
+  SearchSubType({
+    required this.title,
+    required this.name,
+    required this.communityIcon,
+    required this.nbMembers,
+    required this.description,
+  });
+
+  factory SearchSubType.fromJson(Map<String, dynamic> json) {
+    return new SearchSubType(
+      name: json['data']!['display_name'],
+      communityIcon: json['data']!['community_icon'],
+      title: json['data']!['title'],
+      nbMembers: json['data']!['subscribers'].toString(),
+      description: json['data']!['public_description'],
+    );
+  }
+}
 
 class MainSearchSub extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
@@ -9,85 +33,71 @@ class MainSearchSub extends StatelessWidget {
       theme: new ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: new SearchSub(),
+      home: SearchSub(),
     );
   }
 }
 
-class SearchSub extends StatefulWidget {
-  SearchSub({Key? key}) : super(key: key);
-
-  @override
-  _SearchSubState createState() => new _SearchSubState();
-}
-
-class _SearchSubState extends State<SearchSub> {
-  TextEditingController editingController = TextEditingController();
-
-  final duplicateItems = List<String>.generate(10000, (i) => "Item $i");
-  List<String> items = [];
-
-  @override
-  void initState() {
-    items.addAll(duplicateItems);
-    super.initState();
-  }
-
-  void filterSearchResults(String query) {
-    List<String> dummySearchList = [];
-    dummySearchList.addAll(duplicateItems);
-    if (query.isNotEmpty) {
-      List<String> dummyListData = [];
-      dummySearchList.forEach((item) {
-        if (item.contains(query)) {
-          dummyListData.add(item);
-        }
-      });
-      setState(() {
-        items.clear();
-        items.addAll(dummyListData);
-      });
-      return;
-    } else {
-      setState(() {
-        items.clear();
-        items.addAll(duplicateItems);
-      });
-    }
-  }
-
+class SearchSub extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<UserProvider>(context);
+
     return new Scaffold(
-      appBar: new AppBar(),
+      appBar: AppBar(
+          backgroundColor: Color.fromARGB(255, 255, 69, 0),
+          title: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              onChanged: (value) {
+                user.setSubSearched(value);
+              },
+              decoration: InputDecoration(
+                labelText: "Search",
+                hintText: "Search",
+                fillColor: Colors.black,
+                prefixIcon: Icon(Icons.search),
+              ),
+            ),
+          )),
       body: Container(
         child: Column(
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextField(
-                onChanged: (value) {
-                  filterSearchResults(value);
-                },
-                controller: editingController,
-                decoration: InputDecoration(
-                    labelText: "Search",
-                    hintText: "Search",
-                    prefixIcon: Icon(Icons.search),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(25.0)))),
-              ),
-            ),
             Expanded(
-              child: ListView.builder(
-                shrinkWrap: true,
-                itemCount: items.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text('${items[index]}'),
-                  );
-                },
-              ),
+              child: FutureBuilder(
+                  future: user.fetchSearchSubreddits(),
+                  builder: (context, AsyncSnapshot snapshot) {
+                    if (!snapshot.hasData) {
+                      return Center(child: CircularProgressIndicator());
+                    } else {
+                      return ListView.builder(
+                        itemCount: snapshot.data.length,
+                        itemBuilder: (context, index) {
+                          SearchSubType project = snapshot.data![index];
+                          return Column(children: <Widget>[
+                            ListTile(
+                                onTap: () =>
+                                    {print("je tappe lui => " + project.name)},
+                                leading: CircleAvatar(
+                                    backgroundImage: NetworkImage(project
+                                                .communityIcon.length ==
+                                            0
+                                        ? "https://blog.lastpass.com/wp-content/uploads/sites/20/2020/04/reddit-logo-2.jpg"
+                                        : setParseImage(
+                                            project.communityIcon))),
+                                title: Text('r/' + project.name),
+                                subtitle: Text('${project.nbMembers} members')),
+                            const Divider(
+                              height: 0,
+                              thickness: 0.5,
+                              indent: 0,
+                              endIndent: 0,
+                            ),
+                          ]);
+                        },
+                      );
+                    }
+                  }),
             ),
           ],
         ),

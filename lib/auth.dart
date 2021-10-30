@@ -20,7 +20,7 @@ Future<String> getAccessToken(String code) async {
         "redirect_uri": "https://127.0.0.1/"
       });
   if (response.statusCode == 200) {
-    print("access_token ==> " + response.data?['access_token']);
+    print(response.data?['access_token']);
     return (response.data?['access_token']);
   }
   return "";
@@ -45,7 +45,6 @@ class MyAuthenticationState extends State<MyAuthentication> {
           }
           if (!url.contains("code=")) return;
           var str = url;
-          print(url);
           const start = "code=";
           const end = "#";
           final startIndex = str.indexOf(start);
