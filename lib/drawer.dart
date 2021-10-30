@@ -13,8 +13,7 @@ class MyDrawerHeader extends StatelessWidget {
             fit: BoxFit.cover,
             colorFilter: ColorFilter.mode(
                 Colors.black.withOpacity(0.5), BlendMode.dstATop),
-            image: NetworkImage(
-                'https://digitalmediaknowledge.com/wp-content/uploads/2020/02/Reddit-Header-1.png'),
+            image: AssetImage('images/redditHeader.png'),
           ),
           color: Colors.black,
         ),
@@ -61,21 +60,6 @@ class MyDrawer extends StatelessWidget {
             Navigator.popAndPushNamed(context, "/profil");
           },
           title: const Text("Profil")),
-      ListTile(
-          leading: Icon(Icons.developer_mode,
-              color: Color.fromARGB(255, 255, 69, 0)),
-          onTap: () {
-            Navigator.popAndPushNamed(context, "/subreddit");
-          },
-          title: const Text("Subreddit DEV")),
-
-      ListTile(
-          leading: Icon(Icons.developer_mode,
-              color: Color.fromARGB(255, 255, 69, 0)),
-          onTap: () {
-            Navigator.popAndPushNamed(context, "/tab");
-          },
-          title: const Text("Tab DEV")),
 
       ListTile(
           leading: Icon(Icons.settings, color: Color.fromARGB(255, 255, 69, 0)),
