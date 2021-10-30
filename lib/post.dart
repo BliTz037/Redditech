@@ -164,8 +164,7 @@ class Posts extends StatelessWidget {
               //leading: FlutterLogo(),
               //leading: CircleAvatar(backgroundColor: Colors.brown.shade800, child: const Text('X')),
               leading: CircleAvatar(
-                  backgroundImage: NetworkImage(
-                      "https://www.journaldugeek.com/content/uploads/2021/03/xbox-1.jpg")),
+                  backgroundImage: AssetImage('images/redditIcon.png')),
               title: Text('r/' + postType.subreddit),
               subtitle:
                   Text('u/${postType.author} | ${getTime(postType.created)}')),

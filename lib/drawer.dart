@@ -13,8 +13,7 @@ class MyDrawerHeader extends StatelessWidget {
             fit: BoxFit.cover,
             colorFilter: ColorFilter.mode(
                 Colors.black.withOpacity(0.5), BlendMode.dstATop),
-            image: NetworkImage(
-                'https://digitalmediaknowledge.com/wp-content/uploads/2020/02/Reddit-Header-1.png'),
+            image: AssetImage('images/redditHeader.png'),
           ),
           color: Colors.black,
         ),
