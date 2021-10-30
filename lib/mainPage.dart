@@ -44,12 +44,11 @@ class MyMainPageState extends State<MyMainPage> {
             backgroundColor: Color.fromARGB(255, 255, 69, 0),
             bottom: TabBar(
               tabs: [
-                Tab(icon: Icon(Icons.favorite), text: "Best"),
+                Tab(icon: Icon(Icons.favorite)),
                 Tab(
                   icon: Icon(Icons.local_fire_department_sharp),
-                  text: "Hot",
                 ),
-                Tab(icon: Icon(Icons.new_releases), text: "New")
+                Tab(icon: Icon(Icons.new_releases))
               ],
             ),
             actions: [
@@ -72,24 +71,6 @@ class MyMainPageState extends State<MyMainPage> {
             ],
           ),
           backgroundColor: Colors.grey.shade800,
-          bottomNavigationBar: BottomNavigationBar(
-            items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: 'Home',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.add),
-                label: 'Post',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.settings),
-                label: 'Settings',
-              ),
-            ],
-            currentIndex: _selectedIndex,
-            selectedItemColor: Color.fromARGB(255, 255, 69, 0),
-          ),
         ));
   }
 }

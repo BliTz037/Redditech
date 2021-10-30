@@ -4,7 +4,13 @@ import 'userProvider.dart';
 import 'utils.dart';
 
 class SearchSubType {
-  final String title, communityIcon, name, nbMembers, description, banner;
+  String title,
+      communityIcon,
+      name,
+      nbMembers,
+      description,
+      banner,
+      isSubscribe;
 
   SearchSubType(
       {required this.title,
@@ -12,10 +18,12 @@ class SearchSubType {
       required this.communityIcon,
       required this.nbMembers,
       required this.description,
+      required this.isSubscribe,
       required this.banner});
 
   factory SearchSubType.fromJson(Map<String, dynamic> json) {
     return new SearchSubType(
+      isSubscribe: json['data']!['user_is_subscriber'].toString(),
       banner: (json['data']['banner_img'] ?? ""),
       name: json['data']!['display_name'],
       communityIcon: json['data']!['community_icon'],

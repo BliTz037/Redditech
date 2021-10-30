@@ -18,7 +18,8 @@ class UserProvider with ChangeNotifier {
       communityIcon: "communityIcon",
       nbMembers: "nbMembers",
       description: "description",
-      banner: "banner");
+      banner: "banner",
+      isSubscribe: "false");
 
   void setcommentsSelected(String permalink) {
     commentsSelected = permalink;
@@ -91,7 +92,6 @@ class UserProvider with ChangeNotifier {
       'https://oauth.reddit.com$tag',
       options: Options(headers: {"Authorization": "bearer $token"}),
     );
-    print(response.data!['data']);
     if (response.statusCode == 200) {
       var listPost = response.data!['data']!['children'] as List;
       return listPost.map<PostType>((post) => PostType.fromJson(post)).toList();
@@ -106,6 +106,27 @@ class UserProvider with ChangeNotifier {
       options: Options(headers: {"Authorization": "bearer $token"}),
     );
     if (response.statusCode == 200) {
+      notifyListeners();
+      return;
+    } else {
+      throw Exception('Failed to load User');
+    }
+  }
+
+  void setSubscribeSub(String status) async {
+    print(subSelected.name);
+    final response = await Dio().post('https://oauth.reddit.com/api/subscribe/',
+        options: Options(headers: {
+          "Authorization": "bearer $token",
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }),
+        data: {"action": status, "sr_name": "r/" + subSelected.name});
+    if (response.statusCode == 200) {
+      if (subSelected.isSubscribe == "true") {
+        subSelected.isSubscribe = "false";
+      } else {
+        subSelected.isSubscribe = "true";
+      }
       notifyListeners();
       return;
     } else {
