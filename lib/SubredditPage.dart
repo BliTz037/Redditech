@@ -87,8 +87,16 @@ class SubredditPage extends StatelessWidget {
                         style: ElevatedButton.styleFrom(
                             primary: Color.fromARGB(255, 255, 69, 0),
                             textStyle: const TextStyle(fontSize: 12)),
-                        onPressed: () {},
-                        child: const Text('Subscribe'),
+                        onPressed: () {
+                          if (user.subSelected.isSubscribe == "true") {
+                            user.setSubscribeSub("unsub");
+                          } else {
+                            user.setSubscribeSub("sub");
+                          }
+                        },
+                        child: Text((user.subSelected.isSubscribe == "true")
+                            ? 'Unsubscribe'
+                            : 'Subscribe'),
                       )),
                   Align(
                     alignment: Alignment.bottomLeft + Alignment(0.8, -1.4),
@@ -139,23 +147,6 @@ class SubredditPage extends StatelessWidget {
             ],
           ),
           backgroundColor: Colors.grey.shade800,
-          bottomNavigationBar: BottomNavigationBar(
-            items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: 'Home',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.add),
-                label: 'Post',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.settings),
-                label: 'Settings',
-              ),
-            ],
-            selectedItemColor: Color.fromARGB(255, 255, 69, 0),
-          ),
         ));
   }
 }

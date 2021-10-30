@@ -84,25 +84,6 @@ class _ProfilPageState extends State<ProfilPage> {
               ],
             ),
             backgroundColor: Colors.grey.shade800,
-            bottomNavigationBar: BottomNavigationBar(
-              items: const <BottomNavigationBarItem>[
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.home),
-                  label: 'Home',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.add),
-                  label: 'Post',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.settings),
-                  label: 'Settings',
-                ),
-              ],
-              // currentIndex: _selectedIndex,
-              selectedItemColor: Color.fromARGB(255, 255, 69, 0),
-              // onTap: _onItemTapped,
-            ),
           );
           // Text(snapshot.data!["name"]);
         } else if (snapshot.hasError) {

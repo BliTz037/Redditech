@@ -71,24 +71,6 @@ class MyMainPageState extends State<MyMainPage> {
             ],
           ),
           backgroundColor: Colors.grey.shade800,
-          bottomNavigationBar: BottomNavigationBar(
-            items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: 'Home',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.add),
-                label: 'Post',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.settings),
-                label: 'Settings',
-              ),
-            ],
-            currentIndex: _selectedIndex,
-            selectedItemColor: Color.fromARGB(255, 255, 69, 0),
-          ),
         ));
   }
 }

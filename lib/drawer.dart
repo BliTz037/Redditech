@@ -60,7 +60,12 @@ class MyDrawer extends StatelessWidget {
             Navigator.popAndPushNamed(context, "/profil");
           },
           title: const Text("Profil")),
-
+      ListTile(
+          leading: Icon(Icons.home, color: Color.fromARGB(255, 255, 69, 0)),
+          onTap: () {
+            Navigator.popAndPushNamed(context, "/main");
+          },
+          title: const Text("Home")),
       ListTile(
           leading: Icon(Icons.settings, color: Color.fromARGB(255, 255, 69, 0)),
           onTap: () {
