@@ -44,12 +44,11 @@ class MyMainPageState extends State<MyMainPage> {
             backgroundColor: Color.fromARGB(255, 255, 69, 0),
             bottom: TabBar(
               tabs: [
-                Tab(icon: Icon(Icons.favorite), text: "Best"),
+                Tab(icon: Icon(Icons.favorite)),
                 Tab(
                   icon: Icon(Icons.local_fire_department_sharp),
-                  text: "Hot",
                 ),
-                Tab(icon: Icon(Icons.new_releases), text: "New")
+                Tab(icon: Icon(Icons.new_releases))
               ],
             ),
             actions: [
