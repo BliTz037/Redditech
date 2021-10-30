@@ -21,6 +21,8 @@ class SubredditPage extends StatelessWidget {
               return Center(child: CircularProgressIndicator());
             } else {
               return ListView.builder(
+                physics: ScrollPhysics(),
+                shrinkWrap: true,
                 itemCount: snapshot.data.length,
                 itemBuilder: (context, index) {
                   PostType project = snapshot.data![index];
@@ -104,7 +106,9 @@ class SubredditPage extends StatelessWidget {
             ]),
           ),
           Container(
-            child: projectWidget("/r/askReddit"),
+            child: projectWidget(
+              "/r/" + user.subSelected.name,
+            ),
           )
         ],
       ),
