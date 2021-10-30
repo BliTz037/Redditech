@@ -69,6 +69,7 @@ class UserProvider with ChangeNotifier {
       'https://oauth.reddit.com$tag',
       options: Options(headers: {"Authorization": "bearer $token"}),
     );
+    print(response.data!['data']);
     if (response.statusCode == 200) {
       var listPost = response.data!['data']!['children'] as List;
       return listPost.map<PostType>((post) => PostType.fromJson(post)).toList();

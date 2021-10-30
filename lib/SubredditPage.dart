@@ -24,6 +24,7 @@ class SubredditPage extends StatelessWidget {
                 itemCount: snapshot.data.length,
                 itemBuilder: (context, index) {
                   PostType project = snapshot.data![index];
+                  // return Text(project.title);
                   return Posts(postType: project);
                 },
               );
@@ -102,7 +103,9 @@ class SubredditPage extends StatelessWidget {
                   )),
             ]),
           ),
-          // projectWidget(""),
+          Container(
+            child: projectWidget("/r/askReddit"),
+          )
         ],
       ),
       backgroundColor: Colors.grey.shade800,
