@@ -92,7 +92,8 @@ class InteractPost extends StatelessWidget {
           icon: const Icon(Icons.chat_bubble_outline),
           color: Colors.grey,
           onPressed: () {
-            print("COMMENT");
+            user.setcommentsSelected(postType.permalink);
+            Navigator.pushNamed(context, "/comments");
           },
         ),
         Text(postType.nbComments),

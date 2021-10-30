@@ -7,6 +7,7 @@ import 'SettingsPage.dart';
 import 'auth.dart';
 import 'userProvider.dart';
 import 'searchSub.dart';
+import 'CommentsPage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -39,6 +40,7 @@ class MyRoute extends StatelessWidget {
         '/subreddit': (context) => SubredditPage(),
         '/settings': (context) => SettingsPage(),
         '/searchSub': (context) => SearchSub(),
+        '/comments': (context) => CommentsPage(),
       },
     );
   }
