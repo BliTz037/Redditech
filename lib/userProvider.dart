@@ -10,9 +10,21 @@ class UserProvider with ChangeNotifier {
   String icon = "";
   int karma = 0;
   String subSearched = "";
+  SearchSubType subSelected = SearchSubType(
+      title: "title",
+      name: "name",
+      communityIcon: "communityIcon",
+      nbMembers: "nbMembers",
+      description: "description",
+      banner: "banner");
 
   void setSubSearched(String searched) {
     subSearched = searched;
+    notifyListeners();
+  }
+
+  void setSubSelected(SearchSubType sub) {
+    subSelected = sub;
     notifyListeners();
   }
 
@@ -38,12 +50,10 @@ class UserProvider with ChangeNotifier {
   }
 
   Future<List<SearchSubType>> fetchSearchSubreddits() async {
-    print(subSearched);
     var response = await Dio().get(
       'https://oauth.reddit.com/subreddits/${subSearched.length == 0 ? "" : "search/?q=$subSearched"}',
       options: Options(headers: {"Authorization": "bearer $token"}),
     );
-    print(response.data);
     if (response.statusCode == 200) {
       var listPost = response.data!['data']['children'] as List;
       return listPost

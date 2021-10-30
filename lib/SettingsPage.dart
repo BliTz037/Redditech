@@ -12,7 +12,8 @@ class OptionsButton extends StatelessWidget {
   final IconData _icon;
   var _redirect;
 
-  OptionsButton(var title, var subtitle, IconData icon, var redirect) : _icon = icon {
+  OptionsButton(var title, var subtitle, IconData icon, var redirect)
+      : _icon = icon {
     this._title = title;
     this._subtitle = subtitle;
     this._redirect = redirect;
@@ -33,7 +34,9 @@ class OptionsButton extends StatelessWidget {
           size: 40.0,
         ),
         title: Text(_title, style: TextStyle(color: Colors.black)),
-        subtitle: Text(_subtitle, style: TextStyle(color: Colors.black54),
+        subtitle: Text(
+          _subtitle,
+          style: TextStyle(color: Colors.black54),
         ),
       ),
     );
@@ -50,9 +53,15 @@ class SettingsState extends State<SettingsPage> {
       ),
       body: ListView(
         children: <Widget>[
-          OptionsButton("u/BliTz_37", "Editer le profile", Icons.account_circle_outlined, "/editprofile"),
-          OptionsButton("Apparence", "Changer l'apparence de l'app", Icons.app_registration, "/editappearance"),
-          OptionsButton("Crédits", "Dédicace au groupe 'Reddit en 1000 fois mieux'", Icons.group_sharp, "/credit"),
+          OptionsButton("u/BliTz_37", "Editer le profile",
+              Icons.account_circle_outlined, "/editprofile"),
+          OptionsButton("Apparence", "Changer l'apparence de l'app",
+              Icons.app_registration, "/editappearance"),
+          OptionsButton(
+              "Crédits",
+              "Dédicace au groupe 'Reddit en 1000 fois mieux'",
+              Icons.group_sharp,
+              "/credit"),
         ],
       ),
       backgroundColor: Colors.grey.shade800,

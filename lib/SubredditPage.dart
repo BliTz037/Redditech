@@ -1,40 +1,36 @@
 import 'package:flutter/material.dart';
-import 'post.dart';
 import 'drawer.dart';
+import 'package:provider/provider.dart';
+import 'userProvider.dart';
+import 'utils.dart';
+import 'post.dart';
 
-class SubredditPage extends StatefulWidget {
-  const SubredditPage({Key? key}) : super(key: key);
-  @override
-  State<SubredditPage> createState() => SubredditPageState();
-}
-
-class SubredditPageState extends State<SubredditPage> {
-  int _selectedIndex = 0;
+class SubredditPage extends StatelessWidget {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0: Home',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 1: Add post',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 2: Settings',
-      style: optionStyle,
-    ),
-  ];
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<UserProvider>(context);
+    Widget projectWidget(String tag) {
+      final user = Provider.of<UserProvider>(context);
+      return FutureBuilder(
+          future: user.fetchSubreddits(tag),
+          builder: (context, AsyncSnapshot snapshot) {
+            if (!snapshot.hasData) {
+              return Center(child: CircularProgressIndicator());
+            } else {
+              return ListView.builder(
+                itemCount: snapshot.data.length,
+                itemBuilder: (context, index) {
+                  PostType project = snapshot.data![index];
+                  return Posts(postType: project);
+                },
+              );
+            }
+          });
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Redditech'),
@@ -48,9 +44,10 @@ class SubredditPageState extends State<SubredditPage> {
             height: 100,
             decoration: BoxDecoration(
               image: DecorationImage(
-                fit: BoxFit.fill,
-                image: NetworkImage(
-                    "https://styles.redditmedia.com/t5_2r6ex/styles/bannerBackgroundImage_zxzfrfilp0n61.jpg"),
+                fit: BoxFit.fitWidth,
+                image: NetworkImage(user.subSelected.banner.length == 0
+                    ? "https://www.ojim.fr/wp-content/uploads/2020/07/reddit-2020.jpg"
+                    : user.subSelected.banner),
               ),
             ),
           ),
@@ -64,16 +61,18 @@ class SubredditPageState extends State<SubredditPage> {
                     radius: 45,
                     backgroundColor: Color.fromARGB(255, 255, 69, 0),
                     child: CircleAvatar(
-                      radius: 40.0,
-                      backgroundImage: NetworkImage(
-                          'https://b.thumbs.redditmedia.com/JVxT4A3Lr5Zsj77i0rDxvl0p4FDQmESxwcsw47AZZPw.png'),
-                    )),
+                        radius: 40.0,
+                        backgroundImage: NetworkImage(user
+                                    .subSelected.communityIcon.length ==
+                                0
+                            ? "https://blog.lastpass.com/wp-content/uploads/sites/20/2020/04/reddit-logo-2.jpg"
+                            : setParseImage(user.subSelected.communityIcon)))),
               ),
               Align(
                 alignment: Alignment.topLeft + Alignment(0.8, 0.2),
                 child: Text(
-                  'Evangelion',
-                  style: TextStyle(color: Colors.black, fontSize: 20.0),
+                  "r/" + user.subSelected.name,
+                  style: TextStyle(color: Colors.black, fontSize: 18.0),
                 ),
               ),
               Align(
@@ -86,22 +85,24 @@ class SubredditPageState extends State<SubredditPage> {
                     child: const Text('Subscribe'),
                   )),
               Align(
-                alignment: Alignment.bottomLeft + Alignment(1.05, -1.4),
+                alignment: Alignment.bottomLeft + Alignment(0.8, -1.4),
                 child: Text(
-                  'r/evangelion • 172 972 small birds',
+                  '${user.subSelected.nbMembers} members',
                   style: TextStyle(color: Colors.black54, fontSize: 12.0),
                 ),
               ),
-              Align(
-                alignment: Alignment.centerLeft + Alignment(0.1, 0.2),
-                child: Text(
-                  'God\'s in his heaven. All\'s right with the world.',
-                  style: TextStyle(color: Colors.black54, fontSize: 12.0),
-                ),
-              ),
+              Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: Align(
+                    alignment: Alignment.centerLeft + Alignment(0, 0.2),
+                    child: Text(
+                      user.subSelected.description,
+                      style: TextStyle(color: Colors.black54, fontSize: 12.0),
+                    ),
+                  )),
             ]),
           ),
-          //Posts("Phillipe"),
+          // projectWidget(""),
         ],
       ),
       backgroundColor: Colors.grey.shade800,
@@ -120,9 +121,7 @@ class SubredditPageState extends State<SubredditPage> {
             label: 'Settings',
           ),
         ],
-        currentIndex: _selectedIndex,
         selectedItemColor: Color.fromARGB(255, 255, 69, 0),
-        onTap: _onItemTapped,
       ),
     );
   }

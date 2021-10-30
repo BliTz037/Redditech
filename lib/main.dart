@@ -38,7 +38,7 @@ class MyRoute extends StatelessWidget {
         '/profil': (context) => ProfilPage(),
         '/subreddit': (context) => SubredditPage(),
         '/settings': (context) => SettingsPage(),
-        '/searchSub': (context) => MainSearchSub(),
+        '/searchSub': (context) => SearchSub(),
       },
     );
   }

@@ -4,36 +4,24 @@ import 'userProvider.dart';
 import 'utils.dart';
 
 class SearchSubType {
-  final String title, communityIcon, name, nbMembers, description;
+  final String title, communityIcon, name, nbMembers, description, banner;
 
-  SearchSubType({
-    required this.title,
-    required this.name,
-    required this.communityIcon,
-    required this.nbMembers,
-    required this.description,
-  });
+  SearchSubType(
+      {required this.title,
+      required this.name,
+      required this.communityIcon,
+      required this.nbMembers,
+      required this.description,
+      required this.banner});
 
   factory SearchSubType.fromJson(Map<String, dynamic> json) {
     return new SearchSubType(
+      banner: (json['data']['banner_img'] ?? ""),
       name: json['data']!['display_name'],
       communityIcon: json['data']!['community_icon'],
       title: json['data']!['title'],
       nbMembers: json['data']!['subscribers'].toString(),
       description: json['data']!['public_description'],
-    );
-  }
-}
-
-class MainSearchSub extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return new MaterialApp(
-      title: 'Flutter Demo',
-      theme: new ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: SearchSub(),
     );
   }
 }
@@ -76,8 +64,11 @@ class SearchSub extends StatelessWidget {
                           SearchSubType project = snapshot.data![index];
                           return Column(children: <Widget>[
                             ListTile(
-                                onTap: () =>
-                                    {print("je tappe lui => " + project.name)},
+                                onTap: () {
+                                  user.setSubSelected(project);
+                                  Navigator.popAndPushNamed(
+                                      context, "/subreddit");
+                                },
                                 leading: CircleAvatar(
                                     backgroundImage: NetworkImage(project
                                                 .communityIcon.length ==

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:share/share.dart';
 import 'utils.dart';
 import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'userProvider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class PostType {
   final String title, permalink, author, nbComments, url, ups, subreddit;
