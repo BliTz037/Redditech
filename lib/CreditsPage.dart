@@ -20,39 +20,49 @@ class CreditsPageState extends State<CreditsPage> {
       ),
       body: ListView(
         children: <Widget>[
-          Text(
-            "Cette applicaction a été développé par l'équipe : Reddit en 1000 fois mieux",
-            style: TextStyle(fontSize: 32),
+          Container(
+            margin: EdgeInsets.all(10),
+            child: Text(
+              "Cette applicaction a été développé par l'équipe :",
+              style: TextStyle(
+                  fontSize: 17,
+                  color:
+                      user.settings.isNightMode ? Colors.white : Colors.black),
+              textAlign: TextAlign.center,
+            ),
           ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              Container(
-                child: Column(
-                  children: [
-                    CircleAvatar(
-                      backgroundImage: AssetImage('images/blitz.jpg'),
-                      radius: 50,
-                    ),
-                    Text("Tom"),
-                    Text(
-                        "Front-end (Ta jamais vu une app aussi joli, avoue le !)")
-                  ],
-                ),
-              ),
-              Container(
-                  child: Column(
-                children: [
-                  CircleAvatar(
-                    backgroundImage: AssetImage('images/thomas.png'),
-                    radius: 50,
-                  ),
-                  Text("Thomas"),
-                  Text("Back-end (L'API reddit est une merveille !)")
-                ],
-              )),
-            ],
-          )
+          Container(
+            margin: EdgeInsets.all(10),
+            child: Text(
+              "Reddit en 1000 fois mieux",
+              style: TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromARGB(255, 255, 69, 0)),
+              textAlign: TextAlign.center,
+            ),
+          ),
+          Card(
+              child: ListTile(
+            leading: CircleAvatar(
+              backgroundImage: AssetImage('images/blitz.jpg'),
+              radius: 30,
+            ),
+            title: Text('Tom'),
+            subtitle:
+                Text('Front-end (Ta jamais vu une app aussi joli, avoue le !)'),
+            isThreeLine: true,
+          )),
+          Card(
+              child: ListTile(
+            leading: CircleAvatar(
+              backgroundImage: AssetImage('images/thomas.png'),
+              radius: 30,
+            ),
+            title: Text('Thomas'),
+            subtitle: Text("Back-end (L'API reddit est une merveille !)"),
+            isThreeLine: true,
+          )),
         ],
       ),
       backgroundColor: user.settings.isNightMode
