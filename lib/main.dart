@@ -42,7 +42,6 @@ class MyRoute extends StatelessWidget {
         '/settings': (context) => SettingsPage(),
         '/settings/profil': (context) => SettingsProfilPage(),
         '/searchSub': (context) => SearchSub(),
-        // '/editappearance': (context) =>
         '/comments': (context) => CommentsPage(),
       },
     );

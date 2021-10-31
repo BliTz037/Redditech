@@ -79,9 +79,7 @@ class UserProvider with ChangeNotifier {
       options: Options(headers: {"Authorization": "bearer $token"}),
     );
     if (response.statusCode == 200) {
-      print(response.data);
       settings = SettingType.fromJson(response.data);
-      print(settings);
       notifyListeners();
       return SettingType.fromJson(response.data);
     } else {
