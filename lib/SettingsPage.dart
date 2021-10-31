@@ -67,46 +67,27 @@ class SettingsState extends State<SettingsPage> {
         children: <Widget>[
           OptionsButton("u/" + user.username, "Editer le profile",
               Icons.account_circle_outlined, "/settings/profil"),
-          OptionsButton("Apparence", "Changer l'apparence de l'app",
-              Icons.app_registration, "/profil"),
+          Card(
+            margin: EdgeInsets.all(10),
+            child: ListTile(
+              leading: Icon(Icons.nightlight_round,
+                  size: 40, color: Color.fromARGB(255, 255, 69, 0)),
+              title: Text('NightMode'),
+              subtitle: Text('Si tu as un minimum de race tu vas en dark theme'),
+              trailing: Switch(
+                value: user.settings.isNightMode,
+                onChanged: (bool newValue) {
+                  user.setSettingUser(
+                      {"nightmode": !user.settings.isNightMode});
+                },
+              ),
+            ),
+          ),
           OptionsButton(
               "Crédits",
               "Dédicace au groupe 'Reddit en 1000 fois mieux'",
               Icons.group_sharp,
               "/credits"),
-          Container(
-            alignment: Alignment.center,
-            margin: EdgeInsets.all(10),
-            width: double.infinity,
-            decoration: BoxDecoration(
-                color: Colors.white, borderRadius: BorderRadius.circular(10)),
-            child: ListTile(
-              leading: Icon(
-                Icons.mode_night,
-                color: Color.fromARGB(255, 255, 69, 0),
-                size: 40.0,
-              ),
-              title: Text("NightMode", style: TextStyle(color: Colors.black)),
-              subtitle: Column(children: [
-                Text(
-                  "Si tu as un minimum de race tu va en dark theme",
-                  style: TextStyle(color: Colors.black54),
-                ),
-                Padding(
-                    padding: EdgeInsets.all(20),
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          primary: Color.fromARGB(255, 255, 69, 0),
-                          textStyle: const TextStyle(fontSize: 12)),
-                      onPressed: () {
-                        user.setSettingUser(
-                            {"nightmode": !user.settings.isNightMode});
-                      },
-                      child: Text((user.settings.isNightMode) ? 'On' : 'Off'),
-                    ))
-              ]),
-            ),
-          ),
         ],
       ),
       backgroundColor: user.settings.isNightMode
