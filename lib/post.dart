@@ -4,6 +4,7 @@ import 'utils.dart';
 import 'package:provider/provider.dart';
 import 'userProvider.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:better_player/better_player.dart';
 
 class PostType {
   final String title, permalink, author, nbComments, url, ups, subreddit;
@@ -121,7 +122,7 @@ class Posts extends StatelessWidget {
       if (postType.isVideo) {
         return Container(
           margin: const EdgeInsets.all(10),
-          child: Text("Insert videolink ${postType.urlVideo}"),
+          child: BetterPlayer.network(postType.urlVideo), //Text("Insert videolink ${postType.urlVideo}"),
         );
       }
       if (postType.url.contains("https://i.redd.it/")) {
