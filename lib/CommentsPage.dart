@@ -12,7 +12,6 @@ class CommentsPage extends StatefulWidget {
 class CommentsPageState extends State<CommentsPage> {
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<UserProvider>(context);
     Widget projectWidget() {
       final user = Provider.of<UserProvider>(context);
       return FutureBuilder(
@@ -27,22 +26,20 @@ class CommentsPageState extends State<CommentsPage> {
                 itemCount: snapshot.data.length,
                 itemBuilder: (context, index) {
                   CommentType project = snapshot.data![index];
-                  // return Text(project.title);
                   return Comments(commentType: project);
                 },
               );
             }
           });
     }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Commentaires'),
         backgroundColor: Color.fromARGB(255, 255, 69, 0),
       ),
       body: ListView(
-        children: <Widget>[
-          projectWidget()
-        ],
+        children: <Widget>[projectWidget()],
       ),
       backgroundColor: Colors.grey.shade800,
     );

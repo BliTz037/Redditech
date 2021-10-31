@@ -44,7 +44,6 @@ class MyRoute extends StatelessWidget {
         '/settings/profil': (context) => SettingsProfilPage(),
         '/searchSub': (context) => SearchSub(),
         '/credits': (context) => CreditsPage(),
-        // '/editappearance': (context) =>
         '/comments': (context) => CommentsPage(),
       },
     );

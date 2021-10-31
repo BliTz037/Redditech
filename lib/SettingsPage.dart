@@ -28,27 +28,27 @@ class OptionsButton extends StatelessWidget {
         Navigator.pushNamed(context, _redirect);
       },
       child: Container(
-      alignment: Alignment.center,
-      margin: EdgeInsets.all(10),
-      width: double.infinity,
-      decoration: BoxDecoration(
-          color: Colors.white, borderRadius: BorderRadius.circular(10)),
-      child: ListTile(
-        onTap: () {
-          Navigator.pushNamed(context, _redirect);
-        },
-        leading: Icon(
-          _icon,
-          color: Color.fromARGB(255, 255, 69, 0),
-          size: 40.0,
-        ),
-        title: Text(_title, style: TextStyle(color: Colors.black)),
-        subtitle: Text(
-          _subtitle,
-          style: TextStyle(color: Colors.black54),
+        alignment: Alignment.center,
+        margin: EdgeInsets.all(10),
+        width: double.infinity,
+        decoration: BoxDecoration(
+            color: Colors.white, borderRadius: BorderRadius.circular(10)),
+        child: ListTile(
+          onTap: () {
+            Navigator.pushNamed(context, _redirect);
+          },
+          leading: Icon(
+            _icon,
+            color: Color.fromARGB(255, 255, 69, 0),
+            size: 40.0,
+          ),
+          title: Text(_title, style: TextStyle(color: Colors.black)),
+          subtitle: Text(
+            _subtitle,
+            style: TextStyle(color: Colors.black54),
+          ),
         ),
       ),
-    ),
     );
   }
 }
@@ -65,7 +65,7 @@ class SettingsState extends State<SettingsPage> {
       ),
       body: ListView(
         children: <Widget>[
-          OptionsButton("u/BliTz_37", "Editer le profile",
+          OptionsButton("u/" + user.username, "Editer le profile",
               Icons.account_circle_outlined, "/settings/profil"),
           OptionsButton("Apparence", "Changer l'apparence de l'app",
               Icons.app_registration, "/profil"),
@@ -99,19 +99,19 @@ class SettingsState extends State<SettingsPage> {
                           primary: Color.fromARGB(255, 255, 69, 0),
                           textStyle: const TextStyle(fontSize: 12)),
                       onPressed: () {
-                        user.setNightMode(!user.nightMode);
+                        user.setSettingUser(
+                            {"nightmode": !user.settings.isNightMode});
                       },
-                      child: Text((user.subSelected.isSubscribe == "true")
-                          ? 'Unsubscribe'
-                          : 'Subscribe'),
+                      child: Text((user.settings.isNightMode) ? 'On' : 'Off'),
                     ))
               ]),
             ),
           ),
         ],
       ),
-      backgroundColor:
-          user.nightMode ? Colors.grey.shade800 : Colors.grey.shade100,
+      backgroundColor: user.settings.isNightMode
+          ? Colors.grey.shade800
+          : Colors.grey.shade100,
     );
   }
 }

@@ -26,7 +26,6 @@ class SubredditPage extends StatelessWidget {
                 itemCount: snapshot.data.length,
                 itemBuilder: (context, index) {
                   PostType project = snapshot.data![index];
-                  // return Text(project.title);
                   return Posts(postType: project);
                 },
               );
@@ -146,8 +145,9 @@ class SubredditPage extends StatelessWidget {
               )
             ],
           ),
-          backgroundColor:
-              user.nightMode ? Colors.grey.shade800 : Colors.grey.shade100,
+          backgroundColor: user.settings.isNightMode
+              ? Colors.grey.shade800
+              : Colors.grey.shade100,
         ));
   }
 }

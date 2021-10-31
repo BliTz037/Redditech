@@ -37,7 +37,8 @@ class MyAuthenticationState extends State<MyAuthentication> {
     final user = Provider.of<UserProvider>(context);
     return WebView(
         initialUrl:
-            'https://www.reddit.com/api/v1/authorize.compact?client_id=$client&response_type=code&state=RAS&redirect_uri=https://127.0.0.1/&duration=permanent&scope=identity+read+vote+subscribe',
+            // 'https://www.reddit.com/api/v1/authorize.compact?client_id=$client&response_type=code&state=RAS&redirect_uri=https://127.0.0.1/&duration=permanent&scope=identity+read+vote+subscribe',
+            'https://www.reddit.com/api/v1/authorize.compact?client_id=$client&response_type=code&state=RAS&redirect_uri=https://127.0.0.1/&duration=permanent&scope=*',
         onPageStarted: (String url) {
           if (url.contains("error")) {
             Navigator.pushNamed(context, '/');
@@ -53,6 +54,7 @@ class MyAuthenticationState extends State<MyAuthentication> {
           getAccessToken(code).then((val) {
             user.setToken(val);
             user.fetchUserDetails();
+            user.fetchUserSettings();
             Navigator.pushNamed(context, '/main');
           });
         });
