@@ -36,6 +36,8 @@ class MyMainPageState extends State<MyMainPage> {
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<UserProvider>(context);
+
     return DefaultTabController(
         length: 3,
         child: Scaffold(
@@ -70,7 +72,8 @@ class MyMainPageState extends State<MyMainPage> {
               projectWidget("/new"),
             ],
           ),
-          backgroundColor: Colors.grey.shade800,
+          backgroundColor:
+              user.nightMode ? Colors.grey.shade800 : Colors.grey.shade100,
         ));
   }
 }

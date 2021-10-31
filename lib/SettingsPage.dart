@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'userProvider.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -28,6 +30,9 @@ class OptionsButton extends StatelessWidget {
       decoration: BoxDecoration(
           color: Colors.white, borderRadius: BorderRadius.circular(10)),
       child: ListTile(
+        onTap: () {
+          Navigator.pushNamed(context, _redirect);
+        },
         leading: Icon(
           _icon,
           color: Color.fromARGB(255, 255, 69, 0),
@@ -46,6 +51,8 @@ class OptionsButton extends StatelessWidget {
 class SettingsState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<UserProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Paramètres'),
@@ -62,9 +69,44 @@ class SettingsState extends State<SettingsPage> {
               "Dédicace au groupe 'Reddit en 1000 fois mieux'",
               Icons.group_sharp,
               "/credit"),
+          Container(
+            alignment: Alignment.center,
+            margin: EdgeInsets.all(10),
+            width: double.infinity,
+            decoration: BoxDecoration(
+                color: Colors.white, borderRadius: BorderRadius.circular(10)),
+            child: ListTile(
+              leading: Icon(
+                Icons.mode_night,
+                color: Color.fromARGB(255, 255, 69, 0),
+                size: 40.0,
+              ),
+              title: Text("NightMode", style: TextStyle(color: Colors.black)),
+              subtitle: Column(children: [
+                Text(
+                  "Si tu as un minimum de race tu va en dark theme",
+                  style: TextStyle(color: Colors.black54),
+                ),
+                Padding(
+                    padding: EdgeInsets.all(20),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          primary: Color.fromARGB(255, 255, 69, 0),
+                          textStyle: const TextStyle(fontSize: 12)),
+                      onPressed: () {
+                        user.setNightMode(!user.nightMode);
+                      },
+                      child: Text((user.subSelected.isSubscribe == "true")
+                          ? 'Unsubscribe'
+                          : 'Subscribe'),
+                    ))
+              ]),
+            ),
+          ),
         ],
       ),
-      backgroundColor: Colors.grey.shade800,
+      backgroundColor:
+          user.nightMode ? Colors.grey.shade800 : Colors.grey.shade100,
     );
   }
 }

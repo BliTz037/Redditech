@@ -146,7 +146,8 @@ class SubredditPage extends StatelessWidget {
               )
             ],
           ),
-          backgroundColor: Colors.grey.shade800,
+          backgroundColor:
+              user.nightMode ? Colors.grey.shade800 : Colors.grey.shade100,
         ));
   }
 }

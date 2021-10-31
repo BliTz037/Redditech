@@ -10,6 +10,7 @@ class UserProvider with ChangeNotifier {
   String icon = "";
   int karma = 0;
   String subSearched = "";
+  bool nightMode = false;
   SearchSubType subSelected = SearchSubType(
       title: "title",
       name: "name",
@@ -18,6 +19,11 @@ class UserProvider with ChangeNotifier {
       description: "description",
       banner: "banner",
       isSubscribe: "false");
+
+  void setNightMode(bool mode) {
+    nightMode = mode;
+    notifyListeners();
+  }
 
   void setSubSearched(String searched) {
     subSearched = searched;
