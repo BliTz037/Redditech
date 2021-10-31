@@ -19,7 +19,7 @@ class CommentType {
         ups: json['data']!['ups'].toString(),
         content: json['data']!['body'] ?? "",
         url: json['data']!['permalink'] ?? "",
-        created: json['data']!['created'] ?? "");
+        created: json['data']!['created'] ?? 0);
   }
 }
 

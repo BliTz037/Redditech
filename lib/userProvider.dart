@@ -117,6 +117,7 @@ class UserProvider with ChangeNotifier {
   Future<List<CommentType>> fetchCommentsPost() async {
     var response = await Dio().get(
       'https://oauth.reddit.com/$commentsSelected',
+      queryParameters: {"limit": "100"},
       options: Options(headers: {"Authorization": "bearer $token"}),
     );
     if (response.statusCode == 200) {
@@ -132,6 +133,7 @@ class UserProvider with ChangeNotifier {
   Future<List<PostType>> fetchSubreddits(String tag) async {
     final response = await Dio().get(
       'https://oauth.reddit.com$tag',
+      queryParameters: {"limit": "100"},
       options: Options(headers: {"Authorization": "bearer $token"}),
     );
     if (response.statusCode == 200) {
