@@ -35,23 +35,24 @@ class PostType {
 
     if (json['data']['secure_media'] != null &&
         json['data']['secure_media'].containsKey('reddit_video'))
-      urlVideo = json['data']['secure_media']['reddit_video']['fallback_url'];
+      urlVideo =
+          json['data']['secure_media']['reddit_video']['fallback_url'] ?? "";
 
     return new PostType(
-      title: json['data']!['title'],
-      permalink: json['data']!['permalink'],
-      author: json['data']!['author'],
+      title: json['data']!['title'] ?? "",
+      permalink: json['data']!['permalink'] ?? "",
+      author: json['data']!['author'] ?? "",
       nbComments: json['data']!['num_comments'].toString(),
-      url: json['data']!['url'],
+      url: json['data']!['url'] ?? "",
       ups: json['data']!['ups'].toString(),
-      created: json['data']!['created'],
-      subreddit: json['data']!['subreddit'],
-      isSelf: json['data']!['is_self'],
-      isVideo: json['data']!['is_video'],
+      created: json['data']!['created'] ?? "",
+      subreddit: json['data']!['subreddit'] ?? "",
+      isSelf: json['data']!['is_self'] ?? "",
+      isVideo: json['data']!['is_video'] ?? "",
       urlVideo: urlVideo,
-      selftext: json['data']!['selftext'] ?? "",
+      selftext: json['data']!['selftext'] ?? "" ?? "",
       statusVote: json['data']!['likes'].toString(),
-      nameVote: json['data']!['name'],
+      nameVote: json['data']!['name'] ?? "",
     );
   }
 }
@@ -92,7 +93,8 @@ class InteractPost extends StatelessWidget {
           icon: const Icon(Icons.chat_bubble_outline),
           color: Colors.grey,
           onPressed: () {
-            print("COMMENT");
+            user.setcommentsSelected(postType.permalink);
+            Navigator.pushNamed(context, "/comments");
           },
         ),
         Text(postType.nbComments),
@@ -161,8 +163,6 @@ class Posts extends StatelessWidget {
         margin: EdgeInsets.all(15),
         child: Column(children: <Widget>[
           ListTile(
-              //leading: FlutterLogo(),
-              //leading: CircleAvatar(backgroundColor: Colors.brown.shade800, child: const Text('X')),
               leading: CircleAvatar(
                   backgroundImage: AssetImage('images/redditIcon.png')),
               title: Text('r/' + postType.subreddit),

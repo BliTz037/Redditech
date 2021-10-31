@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:redditech/post.dart';
+import 'package:redditech/Comment.dart';
 import 'searchSub.dart';
 
 class UserProvider with ChangeNotifier {
@@ -11,6 +12,8 @@ class UserProvider with ChangeNotifier {
   int karma = 0;
   String subSearched = "";
   bool nightMode = false;
+  String commentsSelected = "";
+
   SearchSubType subSelected = SearchSubType(
       title: "title",
       name: "name",
@@ -22,6 +25,11 @@ class UserProvider with ChangeNotifier {
 
   void setNightMode(bool mode) {
     nightMode = mode;
+    notifyListeners();
+  }
+
+  void setcommentsSelected(String permalink) {
+    commentsSelected = permalink;
     notifyListeners();
   }
 
@@ -68,6 +76,21 @@ class UserProvider with ChangeNotifier {
           .toList();
     } else {
       throw Exception('Failed to load User');
+    }
+  }
+
+  Future<List<CommentType>> fetchCommentsPost() async {
+    var response = await Dio().get(
+      'https://oauth.reddit.com/$commentsSelected',
+      options: Options(headers: {"Authorization": "bearer $token"}),
+    );
+    if (response.statusCode == 200) {
+      var listPost = response.data[1]!['data']['children'] as List;
+      return listPost
+          .map<CommentType>((comments) => CommentType.fromJson(comments))
+          .toList();
+    } else {
+      throw Exception('Failed to load comments');
     }
   }
 

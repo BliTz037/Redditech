@@ -4,9 +4,11 @@ import 'package:provider/provider.dart';
 import 'ProfilPage.dart';
 import 'SubredditPage.dart';
 import 'SettingsPage.dart';
+import 'SettingsProfilPage.dart';
 import 'auth.dart';
 import 'userProvider.dart';
 import 'searchSub.dart';
+import 'CommentsPage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -38,8 +40,10 @@ class MyRoute extends StatelessWidget {
         '/profil': (context) => ProfilPage(),
         '/subreddit': (context) => SubredditPage(),
         '/settings': (context) => SettingsPage(),
+        '/settings/profil': (context) => SettingsProfilPage(),
         '/searchSub': (context) => SearchSub(),
         // '/editappearance': (context) =>
+        '/comments': (context) => CommentsPage(),
       },
     );
   }

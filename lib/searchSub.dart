@@ -25,11 +25,11 @@ class SearchSubType {
     return new SearchSubType(
       isSubscribe: json['data']!['user_is_subscriber'].toString(),
       banner: (json['data']['banner_img'] ?? ""),
-      name: json['data']!['display_name'],
-      communityIcon: json['data']!['community_icon'],
-      title: json['data']!['title'],
+      name: json['data']!['display_name'] ?? "",
+      communityIcon: json['data']!['community_icon'] ?? "",
+      title: json['data']!['title'] ?? "",
       nbMembers: json['data']!['subscribers'].toString(),
-      description: json['data']!['public_description'],
+      description: json['data']!['public_description'] ?? "",
     );
   }
 }

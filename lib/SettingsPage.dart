@@ -23,7 +23,11 @@ class OptionsButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(context, _redirect);
+      },
+      child: Container(
       alignment: Alignment.center,
       margin: EdgeInsets.all(10),
       width: double.infinity,
@@ -44,6 +48,7 @@ class OptionsButton extends StatelessWidget {
           style: TextStyle(color: Colors.black54),
         ),
       ),
+    ),
     );
   }
 }
@@ -61,9 +66,9 @@ class SettingsState extends State<SettingsPage> {
       body: ListView(
         children: <Widget>[
           OptionsButton("u/BliTz_37", "Editer le profile",
-              Icons.account_circle_outlined, "/editprofile"),
+              Icons.account_circle_outlined, "/settings/profil"),
           OptionsButton("Apparence", "Changer l'apparence de l'app",
-              Icons.app_registration, "/editappearance"),
+              Icons.app_registration, "/profil"),
           OptionsButton(
               "Crédits",
               "Dédicace au groupe 'Reddit en 1000 fois mieux'",
