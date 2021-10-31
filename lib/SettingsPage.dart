@@ -73,7 +73,7 @@ class SettingsState extends State<SettingsPage> {
               "Crédits",
               "Dédicace au groupe 'Reddit en 1000 fois mieux'",
               Icons.group_sharp,
-              "/credit"),
+              "/credits"),
           Container(
             alignment: Alignment.center,
             margin: EdgeInsets.all(10),

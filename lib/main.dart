@@ -9,6 +9,7 @@ import 'auth.dart';
 import 'userProvider.dart';
 import 'searchSub.dart';
 import 'CommentsPage.dart';
+import 'CreditsPage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -42,6 +43,7 @@ class MyRoute extends StatelessWidget {
         '/settings': (context) => SettingsPage(),
         '/settings/profil': (context) => SettingsProfilPage(),
         '/searchSub': (context) => SearchSub(),
+        '/credits': (context) => CreditsPage(),
         // '/editappearance': (context) =>
         '/comments': (context) => CommentsPage(),
       },
