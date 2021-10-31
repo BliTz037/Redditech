@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
+import 'package:redditech/SettingsProfilPage.dart';
 import 'package:redditech/post.dart';
 import 'package:redditech/Comment.dart';
 import 'searchSub.dart';
@@ -11,8 +14,17 @@ class UserProvider with ChangeNotifier {
   String icon = "";
   int karma = 0;
   String subSearched = "";
-  bool nightMode = false;
   String commentsSelected = "";
+  SettingType settings = SettingType(
+      isNsfw: false,
+      isNightMode: false,
+      isTrackable: false,
+      isNotifyPrivateMessage: false,
+      isNotifyUpVote: false,
+      isNotifyRequestChat: false,
+      isNotifyNewFollower: false,
+      isShowPresence: false,
+      isShowTopSubreddit: false);
 
   SearchSubType subSelected = SearchSubType(
       title: "title",
@@ -23,9 +35,22 @@ class UserProvider with ChangeNotifier {
       banner: "banner",
       isSubscribe: "false");
 
-  void setNightMode(bool mode) {
-    nightMode = mode;
+  Future<void> setSettingUser(Map<String, dynamic> params) async {
+    final response = await Dio().patch(
+        'https://oauth.reddit.com/api/v1/me/prefs',
+        options: Options(
+            responseType: ResponseType.json,
+            contentType: 'application/json',
+            headers: {
+              "Authorization": "bearer $token",
+            }),
+        data: json.encode(params));
+    settings = SettingType.fromJson(response.data);
     notifyListeners();
+  }
+
+  void setSetting(SettingType setting) {
+    settings = setting;
   }
 
   void setcommentsSelected(String permalink) {
@@ -46,6 +71,22 @@ class UserProvider with ChangeNotifier {
   void setToken(String ntoken) {
     token = ntoken;
     notifyListeners();
+  }
+
+  Future<SettingType> fetchUserSettings() async {
+    final response = await Dio().get(
+      'https://oauth.reddit.com/api/v1/me/prefs',
+      options: Options(headers: {"Authorization": "bearer $token"}),
+    );
+    if (response.statusCode == 200) {
+      print(response.data);
+      settings = SettingType.fromJson(response.data);
+      print(settings);
+      notifyListeners();
+      return SettingType.fromJson(response.data);
+    } else {
+      throw Exception('Failed to load Settings');
+    }
   }
 
   Future<Map<String, dynamic>> fetchUserDetails() async {
@@ -121,7 +162,6 @@ class UserProvider with ChangeNotifier {
   }
 
   void setSubscribeSub(String status) async {
-    print(subSelected.name);
     final response = await Dio().post('https://oauth.reddit.com/api/subscribe/',
         options: Options(headers: {
           "Authorization": "bearer $token",

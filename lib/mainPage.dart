@@ -72,8 +72,9 @@ class MyMainPageState extends State<MyMainPage> {
               projectWidget("/new"),
             ],
           ),
-          backgroundColor:
-              user.nightMode ? Colors.grey.shade800 : Colors.grey.shade100,
+          backgroundColor: user.settings.isNightMode
+              ? Colors.grey.shade800
+              : Colors.grey.shade100,
         ));
   }
 }

@@ -83,8 +83,9 @@ class _ProfilPageState extends State<ProfilPage> {
                 //Posts("Phillipe"),
               ],
             ),
-            backgroundColor:
-                user.nightMode ? Colors.grey.shade800 : Colors.grey.shade100,
+            backgroundColor: user.settings.isNightMode
+                ? Colors.grey.shade800
+                : Colors.grey.shade100,
           );
           // Text(snapshot.data!["name"]);
         } else if (snapshot.hasError) {
