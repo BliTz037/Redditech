@@ -49,10 +49,6 @@ class UserProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void setSetting(SettingType setting) {
-    settings = setting;
-  }
-
   void setcommentsSelected(String permalink) {
     commentsSelected = permalink;
     notifyListeners();

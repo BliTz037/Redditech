@@ -35,7 +35,8 @@ class CreditsPageState extends State<CreditsPage> {
                       radius: 50,
                     ),
                     Text("Tom"),
-                    Text("Front-end (Ta jamais vu une app aussi joli, avoue le !)")
+                    Text(
+                        "Front-end (Ta jamais vu une app aussi joli, avoue le !)")
                   ],
                 ),
               ),
@@ -54,8 +55,9 @@ class CreditsPageState extends State<CreditsPage> {
           )
         ],
       ),
-      backgroundColor:
-          user.nightMode ? Colors.grey.shade800 : Colors.grey.shade100,
+      backgroundColor: user.settings.isNightMode
+          ? Colors.grey.shade800
+          : Colors.grey.shade100,
     );
   }
 }
