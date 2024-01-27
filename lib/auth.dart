@@ -13,7 +13,7 @@ class MyAuthentication extends StatefulWidget {
 Future<String> getAccessToken(String code) async {
   var dio = Dio();
   Response<Map> response = await dio.post(
-      'https://K3u2sTJJTa6xgZqSYGYTGg:@www.reddit.com/api/v1/access_token',
+      'https://XXX:@www.reddit.com/api/v1/access_token',
       queryParameters: {
         "grant_type": "authorization_code",
         "code": code,
@@ -32,7 +32,7 @@ class MyAuthenticationState extends State<MyAuthentication> {
     if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
   }
 
-  var client = "K3u2sTJJTa6xgZqSYGYTGg";
+  var client = "XXX";
   Widget build(BuildContext context) {
     final user = Provider.of<UserProvider>(context);
     return WebView(
